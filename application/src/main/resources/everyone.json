@@ -1,0 +1,185 @@
+[
+  {
+    "id": 1,
+    "name": "Lemuel Taeza",
+    "nickname": "lem",
+    "gender": "MALE",
+    "dateOfBirth": "1986-03-13",
+    "parents": [
+      {
+        "name": "Reynaldo Taeza",
+        "gender": "MALE",
+        "id": 2
+      },
+      {
+        "name": "Celia Taeza",
+        "gender": "FEMALE",
+        "id": 4
+      }
+    ],
+    "children": [
+      {
+        "name": "Saoirse Maddison Taeza",
+        "gender": "FEMALE",
+        "id": 3
+      }
+    ],
+    "relationships": {
+      "BFF": [
+        {
+          "name": "Aryce Brillantes",
+          "gender": "FEMALE",
+          "id": 5
+        }
+      ],
+      "BESTFRIEND": [
+        {
+          "name": "Maria Lourdes Taeza",
+          "gender": "FEMALE",
+          "id": 8
+        }
+      ],
+      "WIFE": [
+        {
+          "name": "Maria Lourdes Taeza",
+          "gender": "FEMALE",
+          "id": 8
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Reynaldo Taeza",
+    "nickname": "rey",
+    "gender": "MALE",
+    "dateOfBirth": "1960-07-16",
+    "parents": [],
+    "children": [
+      {
+        "name": "Lemuel Taeza",
+        "gender": "MALE",
+        "id": 1
+      }
+    ],
+    "relationships": {}
+  },
+  {
+    "id": 3,
+    "name": "Saoirse Maddison Taeza",
+    "nickname": "chichi",
+    "gender": "FEMALE",
+    "dateOfBirth": "2017-12-15",
+    "parents": [
+      {
+        "name": "Lemuel Taeza",
+        "gender": "MALE",
+        "id": 1
+      },
+      {
+        "name": "Maria Lourdes Taeza",
+        "gender": "FEMALE",
+        "id": 8
+      }
+    ],
+    "children": [],
+    "relationships": {}
+  },
+  {
+    "id": 4,
+    "name": "Celia Taeza",
+    "nickname": "cel",
+    "gender": "FEMALE",
+    "dateOfBirth": "1961-06-25",
+    "parents": [
+      {
+        "name": "Presentation Brillantes",
+        "gender": "FEMALE",
+        "id": 7
+      }
+    ],
+    "children": [
+      {
+        "name": "Lemuel Taeza",
+        "gender": "MALE",
+        "id": 1
+      }
+    ],
+    "relationships": {}
+  },
+  {
+    "id": 5,
+    "name": "Aryce Brillantes",
+    "nickname": "ace",
+    "gender": "FEMALE",
+    "dateOfBirth": "1991-02-03",
+    "parents": [
+      {
+        "name": "Arlene Brillantes",
+        "gender": "FEMALE",
+        "id": 6
+      }
+    ],
+    "children": [],
+    "relationships": {}
+  },
+  {
+    "id": 6,
+    "name": "Arlene Brillantes",
+    "nickname": "zita",
+    "gender": "FEMALE",
+    "dateOfBirth": "1990-06-25",
+    "parents": [
+      {
+        "name": "Presentation Brillantes",
+        "gender": "FEMALE",
+        "id": 7
+      }
+    ],
+    "children": [
+      {
+        "name": "Aryce Brillantes",
+        "gender": "FEMALE",
+        "id": 5
+      }
+    ],
+    "relationships": {}
+  },
+  {
+    "id": 7,
+    "name": "Presentation Brillantes",
+    "nickname": "pencing",
+    "gender": "FEMALE",
+    "dateOfBirth": "+169087565-03-15",
+    "parents": [],
+    "children": [
+      {
+        "name": "Arlene Brillantes",
+        "gender": "FEMALE",
+        "id": 6
+      },
+      {
+        "name": "Celia Taeza",
+        "gender": "FEMALE",
+        "id": 4
+      }
+    ],
+    "relationships": {}
+  },
+  {
+    "id": 8,
+    "name": "Maria Lourdes Taeza",
+    "nickname": "mai",
+    "gender": "FEMALE",
+    "dateOfBirth": "1984-02-28",
+    "parents": [],
+    "children": [
+      {
+        "name": "Saoirse Maddison Taeza",
+        "gender": "FEMALE",
+        "id": 3
+      }
+    ],
+    "relationships": {}
+  }
+]
