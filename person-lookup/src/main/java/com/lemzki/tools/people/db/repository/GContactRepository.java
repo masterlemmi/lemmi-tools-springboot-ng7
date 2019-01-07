@@ -37,7 +37,7 @@ public class GContactRepository {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 
-    public void testGet(String token) throws GeneralSecurityException, IOException {
+    public void rtestGet(String token) throws GeneralSecurityException, IOException {
         GoogleCredential credential = new GoogleCredential().setAccessToken(token);
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         peopleService = new PeopleService.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)

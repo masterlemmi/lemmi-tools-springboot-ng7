@@ -44,10 +44,7 @@ public class PersonControllerImpl implements PersonController {
         return "welcome to family -db";
     }
 
-    @GetMapping("/user")
-    public Principal user(Principal principal) {
-        return principal;
-    }
+
 
     @Override
     public List<PersonDTO> getAllPeople() {

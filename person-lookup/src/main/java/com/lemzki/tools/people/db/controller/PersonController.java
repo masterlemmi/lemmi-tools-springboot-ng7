@@ -10,29 +10,31 @@ import java.util.Optional;
 
 public interface PersonController {
 
-    @GetMapping("/")
+     static final String REST_BASE="/people";
+
+    @GetMapping(REST_BASE +"/")
     String home();
 
-    @GetMapping("/everyone")
+    @GetMapping(REST_BASE + "/everyone")
     List<PersonDTO> getAllPeople();
 
-    @GetMapping("/recent")
+    @GetMapping(REST_BASE + "/recent")
     List<PersonDTO> getRecentPeople();
 
     //get all that matches. if exclude is present. remove those from found
-    @GetMapping("/find")
+    @GetMapping(REST_BASE +"/find")
     List<PersonDTO> findByNameorNickName(@RequestParam("name") String nickNameOrName,
                                          @RequestParam("exclude-ids") Optional<List<Long>> excludeList);
 
-    @PostMapping("/")
+    @PostMapping(REST_BASE+ "/")
     PersonDTO addPerson(@RequestBody ComplexPersonDTO personDTO);
 
-    @GetMapping("/{id}")
+    @GetMapping(REST_BASE+ "/{id}")
     PersonDTO getPerson(@PathVariable("id") long id);
 
-    @PutMapping("/{id}")
+    @PutMapping(REST_BASE +"/{id}")
     PersonDTO updatePerson(@PathVariable("id") long id, @RequestBody PersonDTO personDTO);
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(REST_BASE + "/{id}")
     void deletePerson(@PathVariable("id") long id);
 }
