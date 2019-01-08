@@ -6,14 +6,12 @@ import com.lemzki.tools.people.db.dto.PersonDTO;
 import com.lemzki.tools.people.db.dto.builder.ResourceBuilder;
 import com.lemzki.tools.people.db.mapper.impl.PersonMapper;
 import com.lemzki.tools.people.db.model.Person;
-import com.lemzki.tools.people.db.repository.exception.PersonNotFoundException;
+import com.lemzki.tools.people.db.exception.PersonNotFoundException;
 import com.lemzki.tools.people.db.service.*;
 import com.lemzki.tools.people.db.util.RecentHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;

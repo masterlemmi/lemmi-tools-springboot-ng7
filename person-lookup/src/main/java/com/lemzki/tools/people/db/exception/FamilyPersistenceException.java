@@ -1,4 +1,4 @@
-package com.lemzki.tools.people.db.repository.exception;
+package com.lemzki.tools.people.db.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

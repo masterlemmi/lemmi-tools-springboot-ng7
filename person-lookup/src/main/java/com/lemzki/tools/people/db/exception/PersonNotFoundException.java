@@ -1,4 +1,4 @@
-package com.lemzki.tools.people.db.repository.exception;
+package com.lemzki.tools.people.db.exception;
 
 import javassist.NotFoundException;
 import lombok.Getter;

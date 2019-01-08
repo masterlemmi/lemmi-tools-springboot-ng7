@@ -4,14 +4,12 @@ import com.google.common.collect.Sets;
 import com.lemzki.tools.people.db.model.Family;
 import com.lemzki.tools.people.db.model.Person;
 import com.lemzki.tools.people.db.repository.FamilyRepository;
-import com.lemzki.tools.people.db.repository.exception.FamilyPersistenceException;
+import com.lemzki.tools.people.db.exception.FamilyPersistenceException;
 import com.lemzki.tools.people.db.service.FamilyService;
-import com.lemzki.tools.people.db.util.LemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 import static com.lemzki.tools.people.db.util.LemUtils.*;
 import static java.util.Comparator.*;

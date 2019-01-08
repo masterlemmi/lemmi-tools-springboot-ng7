@@ -1,11 +1,9 @@
 package com.lemzki.tools.people.db.service.impl;
 
 import com.lemzki.tools.people.db.exception.RelationShipPersistenceException;
-import com.lemzki.tools.people.db.model.Family;
 import com.lemzki.tools.people.db.model.Person;
 import com.lemzki.tools.people.db.model.Relationship;
 import com.lemzki.tools.people.db.repository.RelationshipRepository;
-import com.lemzki.tools.people.db.repository.exception.FamilyPersistenceException;
 import com.lemzki.tools.people.db.service.RelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
