@@ -1,15 +1,9 @@
 package com.lemzki.tools.security.model;
 
 
-import javax.persistence.*;
-
 import lombok.*;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
-import java.security.Principal;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.persistence.*;
 import java.util.Set;
 
 
@@ -30,9 +24,9 @@ public class User {
     private String link;
     private String picture;
     private String gender;
+    private String accessToken;
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
 }

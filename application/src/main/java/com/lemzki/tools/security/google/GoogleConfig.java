@@ -6,7 +6,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.people.v1.PeopleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lemzki.tools.security.LoggedInUser;
+import com.lemzki.tools.security.mapper.UserMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
@@ -35,10 +35,23 @@ public class GoogleConfig {
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-        GoogleCredential googleCredential() {
-        OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-        String accessToken = ((OAuth2AuthenticationDetails) oAuth2Authentication.getDetails()).getTokenValue();
+     GoogleCredential googleCredential() {
+        String accessToken =  loggedInUser().getUser().getAccessToken();
         return new GoogleCredential().setAccessToken(accessToken);
+    }
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public LoggedInUser loggedInUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth instanceof OAuth2Authentication){
+            OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) auth;
+            return () -> UserMapper.mapFrom(oAuth2Authentication);
+        }
+
+        System.out.println("Logged in anonymously or wiht something else" + auth);
+        return LoggedInUser.anonymous();
     }
 
 

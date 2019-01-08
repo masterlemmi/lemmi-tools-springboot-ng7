@@ -40,17 +40,38 @@ public class PersonMapper {
         return complexPersonDTO;
     }
 
-    public static PersonDTO mapGoogleResource(Person person) {
+    public static Person mapGoogleResource(com.google.api.services.people.v1.model.Person gPerson) {
+        Person person = new Person();
+//        person.setDateOfBirth(determineDateOfBirth(gPerson.getBirthdays()));
+//        person.setGender(determineGender(gPerson.getGenders()));
+//        person.setName(determineNames(gPerson.getNames()));
+//        person.setNickname(determineNicknames(gPerson.getNicknames()));
+//        person.setDateOfDeath(determineDateOfDeath(gPerson.getUserDefined()));
+//        person.setPhotoUrl(determinePhotoUrl(gPerson.getPhotos()));
+//        person.setAddedBy();
+//
+//
+//    }
+//
+//    private static Gender determineGender(List<com.google.api.services.people.v1.model.Gender> genders) {
+//    }
+//
+//
+//
+//
+//    private static LocalDate determineDateOfBirth(List<Birthday> birthday){
+//
+//    }
         return null;
     }
+
 
     private static int calculateDeathAge(Person person) {
         return person.getDateOfBirth() == null ? 0 : Period.between(person.getDateOfBirth(), person.getDateOfDeath()).getYears();
     }
 
     private static int calculateAge(Person person) {
-            return person.getDateOfBirth() == null ? 0 : Period.between(person.getDateOfBirth(), LocalDate.now()).getYears();
+        return person.getDateOfBirth() == null ? 0 : Period.between(person.getDateOfBirth(), LocalDate.now()).getYears();
     }
-
 
 }

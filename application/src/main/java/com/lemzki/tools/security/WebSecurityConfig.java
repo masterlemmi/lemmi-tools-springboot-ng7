@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/user**")
+                .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

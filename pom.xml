@@ -11,6 +11,7 @@
      <modules>
         <module>person-lookup</module>
         <module>application</module>
+        <module>models</module>
     </modules>
 
 </project>
