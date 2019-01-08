@@ -85,6 +85,7 @@ public class PersonLoader {
         Person person = null;
         try {
             person = new Person();
+            person.setAddedBy(LemID.TEMP);
             person.setName(record.get("NAME"));
             int index = random.nextInt(resolutions.length);
             person.setPhotoUrl("https://source.unsplash.com/random/" + index + "x" + index);
@@ -138,8 +139,10 @@ public class PersonLoader {
         Family parentPencing = new Family(pencing);
         parentPencing.childrenAre(cel, zita, lem);
 
-        familyRepository.saveAll(Lists.newArrayList(parentLem, parentMai
-        ,parentRey, parentCel, parentZita, parentPencing));
+        List<Family> families = Lists.newArrayList(parentLem, parentMai
+                ,parentRey, parentCel, parentZita, parentPencing);
+        families.forEach(family -> family.setAddedBy(LemID.TEMP));
+        familyRepository.saveAll(families);
 
 
         String[] rs = {"BESTFRIEND", "WIFE", "ENEMY", "BFFS", "SOMEREL"};
@@ -156,7 +159,7 @@ public class PersonLoader {
         maiLem.setMain(lem);
         maiLem.setOther(mai);
         maiLem.setRelation(Sets.newHashSet(rmap.get("BESTFRIEND"), rmap.get("WIFE"), rmap.get(("ENEMIES"))));
-
+        maiLem.setAddedBy(LemID.TEMP);
 
 
 
@@ -165,11 +168,13 @@ public class PersonLoader {
         teroyAce.setMain(chichi);
         teroyAce.setOther(ace);
         teroyAce.setRelation(Sets.newHashSet(rmap.get("BFFS")));
+        teroyAce.setAddedBy(LemID.TEMP);
 
         Relationship pencingLem = new Relationship();
         pencingLem.setMain(pencing);
         pencingLem.setOther(lem);
         pencingLem.setRelation(Sets.newHashSet(rmap.get("SOMEREL")));
+        pencingLem.setAddedBy(LemID.TEMP);
 
         relationshipRepository.saveAll(Sets.newHashSet(maiLem, teroyAce, pencingLem));
 
@@ -177,6 +182,7 @@ public class PersonLoader {
         chichiLem.setMain(lem);
         chichiLem.setOther(chichi);
         chichiLem.setRelation(Sets.newHashSet(rmap.get("BESTFRIEND")));
+        chichiLem.setAddedBy(LemID.TEMP);
 
         relationshipRepository.save(chichiLem);
     }

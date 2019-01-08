@@ -3,6 +3,7 @@ package com.lemzki.tools.security.model;
 
 import javax.persistence.*;
 
+import com.lemzki.tools.people.db.model.Person;
 import lombok.*;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -31,6 +32,7 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
 
     public static User from(Principal principal) {
         OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) principal;

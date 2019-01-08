@@ -17,6 +17,7 @@ import java.util.Set;
 public class Family {
     @Id @GeneratedValue
     private Long id;
+    private @NonNull String addedBy;
     @OneToOne
     private Person parent;
     @ManyToMany

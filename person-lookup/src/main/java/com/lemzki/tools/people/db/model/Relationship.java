@@ -16,6 +16,7 @@ import java.util.Set;
 public class Relationship {
     @Id @GeneratedValue
     private Long id;
+    private @NonNull String addedBy;
     @OneToOne
     private Person main;
     @OneToOne

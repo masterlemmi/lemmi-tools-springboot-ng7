@@ -17,6 +17,7 @@ public class Person {
     @Id @GeneratedValue
     private Long id;
     private @NonNull String name;
+    private @NonNull String addedBy;
     private String nickname;
     private String photoUrl;
 

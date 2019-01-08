@@ -11,15 +11,15 @@ import java.util.Set;
 
 public interface RelationshipController {
 
-    @GetMapping("/family/{id}/relationships")
+    @GetMapping("/people/{id}/relationships")
     Map<String, Set<PersonDTO>> getRelationships(@PathVariable("id") long personId);
 
-    @PostMapping("/family/{id}/relationships")
+    @PostMapping("/people/{id}/relationships")
     Map<String, Set<PersonDTO>> addRelationship(@PathVariable("id") long id, @RequestBody Map<String, Set<PersonDTO>> relationships);
 
-    @PutMapping("/family/{id}/relationships/{relationType}")
+    @PutMapping("/people/{id}/relationships/{relationType}")
     PersonDTO updateRelationship(@PathVariable("id") long id, @PathVariable("relationType") String relationType, @RequestBody Set<PersonDTO> relationshipskkkk);
 
-    @DeleteMapping("/family/{id}/{relationType}")
+    @DeleteMapping("/people/{id}/{relationType}")
     void deleteRelationship(@PathVariable("id") long id);
 }
