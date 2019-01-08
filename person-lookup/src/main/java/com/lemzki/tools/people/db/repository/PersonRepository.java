@@ -1,16 +1,14 @@
 package com.lemzki.tools.people.db.repository;
 
-import com.lemzki.tools.people.db.dto.PersonDTO;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
 @RepositoryRestResource
-public interface PersonRepository extends JpaRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<PersonDb, Long> {
 
-    //@Query("select p from Person p where p.name like %:nickNameOrName% OR p.nickname like %:nickNameOrName%")
-    List<Person> findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(String name, String nicknamea);
+    //@Query("select p from PersonDb p where p.name like %:nickNameOrName% OR p.nickname like %:nickNameOrName%")
+    List<PersonDb> findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(String name, String nicknamea);
 }

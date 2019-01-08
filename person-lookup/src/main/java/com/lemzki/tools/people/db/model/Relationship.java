@@ -16,11 +16,11 @@ import java.util.Set;
 public class Relationship {
     @Id @GeneratedValue
     private Long id;
-    private @NonNull String addedBy;
+    private @NonNull Long addedBy;
     @OneToOne
-    private Person main;
+    private PersonDb main;
     @OneToOne
-    private Person other;
+    private PersonDb other;
 
     @ManyToMany
     private @NonNull Set<RelationType> relation = new HashSet<>();

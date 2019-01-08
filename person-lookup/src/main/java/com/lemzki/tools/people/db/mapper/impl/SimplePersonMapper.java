@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("sPersonMapper")
-public class SimplePersonMapper implements ResourceMapper<PersonDTO, Person> {
+public class SimplePersonMapper implements ResourceMapper<PersonDTO, PersonDb> {
 
     @Autowired
     PersonRepository personRepository;
 
     @Override
-    public Person mapResource(PersonDTO simplePerson) {
+    public PersonDb mapResource(PersonDTO simplePerson) {
         if(simplePerson.getId() == null){
             return newPerson(simplePerson);
         } else {
@@ -21,8 +21,8 @@ public class SimplePersonMapper implements ResourceMapper<PersonDTO, Person> {
         }
     }
 
-    private Person newPerson(PersonDTO simplePerson) {
-        Person person = new Person();
+    private PersonDb newPerson(PersonDTO simplePerson) {
+        PersonDb person = new PersonDb();
         person.setId(simplePerson.getId());
         person.setName(simplePerson.getName());
         person.setGender(simplePerson.getGender());
@@ -30,7 +30,7 @@ public class SimplePersonMapper implements ResourceMapper<PersonDTO, Person> {
     }
 
     @Override
-    public PersonDTO mapModel(Person person) {
+    public PersonDTO mapModel(PersonDb person) {
         return new PersonDTO(person.getName(), person.getGender(), person.getId());
     }
 }*/

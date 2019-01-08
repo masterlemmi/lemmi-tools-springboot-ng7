@@ -18,15 +18,15 @@ public class PersonRepositoryTests {
 
     @Test
     public void testGetParents(){
-        Person person = new Person();
+        PersonDb person = new PersonDb();
         person.setId(1l);
-       List<Person> parents = personRepository.findParentsOf(person);
+       List<PersonDb> parents = personRepository.findParentsOf(person);
 parents.forEach(p-> System.out.println(p.getName()));
     }
 
     @Test
     public void testGetIdIfNullID(){
-        //Optional<Person> person = personRepository.findById(null);
+        //Optional<PersonDb> person = personRepository.findById(null);
        // System.out.println("GETTING EPRSON: " + person.get());
     }
 

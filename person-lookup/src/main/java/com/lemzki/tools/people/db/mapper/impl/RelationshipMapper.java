@@ -3,7 +3,7 @@ package com.lemzki.tools.people.db.mapper.impl;
 
 import com.google.common.collect.Sets;
 import com.lemzki.tools.people.db.dto.PersonDTO;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.model.RelationType;
 import com.lemzki.tools.people.db.model.Relationship;
 import org.apache.commons.collections4.MapUtils;
@@ -39,27 +39,27 @@ public class RelationshipMapper {
         return map;
     }
 
-    public static Map<Person, Set<RelationType>>  mapModel(Map<String, Set<PersonDTO>> relationsips) {
-        Map<Person, Set<RelationType>> results = new HashMap<>();
+    public static Map<PersonDb, Set<RelationType>>  mapModel(Map<String, Set<PersonDTO>> relationsips) {
+        Map<PersonDb, Set<RelationType>> results = new HashMap<>();
 
 
         if (MapUtils.isEmpty(relationsips)) {
             return results;
         }
 
-        Map<Person, Set<RelationType>> personToRelationn = new HashMap<>();
+        Map<PersonDb, Set<RelationType>> personToRelationn = new HashMap<>();
 
 
         for (Map.Entry<String, Set<PersonDTO>> entry : relationsips.entrySet()) {
             RelationType relationType = new RelationType(entry.getKey());
 
             for (PersonDTO pDTO : entry.getValue()) {
-                Person person = PersonMapper.mapResource(pDTO);
+                PersonDb personDb = PersonMapper.mapResource(pDTO);
 
-                if(personToRelationn.containsKey(person)){
-                    personToRelationn.get(person).add(relationType);
+                if(personToRelationn.containsKey(personDb)){
+                    personToRelationn.get(personDb).add(relationType);
                 } else {
-                    personToRelationn.put(person, Sets.newHashSet(relationType));
+                    personToRelationn.put(personDb, Sets.newHashSet(relationType));
                 }
             }
         }

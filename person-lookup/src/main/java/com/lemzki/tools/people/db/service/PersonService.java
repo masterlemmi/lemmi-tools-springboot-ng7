@@ -1,8 +1,6 @@
 package com.lemzki.tools.people.db.service;
 
-import com.lemzki.tools.people.db.dto.ComplexPersonDTO;
-import com.lemzki.tools.people.db.dto.PersonDTO;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,19 +8,21 @@ import java.util.Set;
 
 public interface PersonService {
 
-    List<Person> findAll();
+    List<PersonDb> findAll();
 
-    Optional<Person> find(long id);
+    Optional<PersonDb> find(long id);
 
-    Person save(Person person);
+    PersonDb save(PersonDb personDb);
 
-    Person edit(Person person);
+    List<PersonDb> saveAll(Set<PersonDb> personDb);
+
+    PersonDb edit(PersonDb personDb);
 
     void delete(long id);
 
-    Set<Person> retrieveOrSave(Set<Person> persons);
+    Set<PersonDb> retrieveOrSave(Set<PersonDb> personDbs);
 
-    Person retrieveOrSave(Person person);
+    PersonDb retrieveOrSave(PersonDb personDb);
 
-    List<Person> findByNameOrNickName(String nickNameOrName);
+    List<PersonDb> findByNameOrNickName(String nickNameOrName);
 }

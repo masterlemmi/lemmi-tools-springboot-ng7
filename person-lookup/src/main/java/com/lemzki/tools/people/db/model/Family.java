@@ -17,28 +17,28 @@ import java.util.Set;
 public class Family {
     @Id @GeneratedValue
     private Long id;
-    private @NonNull String addedBy;
+    private @NonNull Long addedBy;
     @OneToOne
-    private Person parent;
+    private PersonDb parent;
     @ManyToMany
-    private Set<Person> children = new HashSet<>();
+    private Set<PersonDb> children = new HashSet<>();
 
-    public Family(Person parent){
+    public Family(PersonDb parent){
         this.parent = parent;
     }
 
-    public Family (Person parent, Person... kids){
+    public Family (PersonDb parent, PersonDb... kids){
         this.parent = parent;
         children.addAll(Sets.newHashSet(kids));
     }
 
-    public Family (Person parent, Set<Person> kids){
+    public Family (PersonDb parent, Set<PersonDb> kids){
         this.parent = parent;
         this.children.addAll(kids);
     }
 
 
-    public void childrenAre(Person... chichi) {
+    public void childrenAre(PersonDb... chichi) {
         children.addAll(Sets.newHashSet(chichi));
     }
 }

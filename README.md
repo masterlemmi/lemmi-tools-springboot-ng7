@@ -20,7 +20,7 @@ CLIENT
 
 :TODO:
 -googleId in user validate
--user foreign key to each person/rel/anything else user specific
+-user foreign key to each personDb/rel/anything else user specific
 
 LISTENer to authentication success
 SAVE/UPDATE USER

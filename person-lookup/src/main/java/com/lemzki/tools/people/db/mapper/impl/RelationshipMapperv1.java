@@ -16,10 +16,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Component("relationMapper")
-public class RelationshipMapper implements ResourceMapper<Map<String, Set<PersonDTO>>, Map<Person, Relationship>> {
+public class RelationshipMapper implements ResourceMapper<Map<String, Set<PersonDTO>>, Map<PersonDb, Relationship>> {
 
     @Autowired
-    ResourceMapper<PersonDTO, Person> sPersonMapper;
+    ResourceMapper<PersonDTO, PersonDb> sPersonMapper;
 
     @Autowired
     RelationTypeRepository relationTypeRepository;
@@ -28,9 +28,9 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
     PersonRepository personRepository;
 
     @Override
-    public Map<Person, Relationship> mapResource(Map<String, Set<PersonDTO>> relationsByType) {
+    public Map<PersonDb, Relationship> mapResource(Map<String, Set<PersonDTO>> relationsByType) {
 
-        Map<Person, Relationship> relationships = new HashMap<>();
+        Map<PersonDb, Relationship> relationships = new HashMap<>();
 
         relationsByType.entrySet().forEach(entry -> {
             Set<PersonDTO> sPersons = entry.getValue();
@@ -39,7 +39,7 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
             sPersons.forEach(sPerson -> {
                 if (sPerson.getId() == null) {
                     //new person, retrieveOrSave it
-                    Person person = sPersonMapper.mapResource(sPerson);
+                    PersonDb person = sPersonMapper.mapResource(sPerson);
                     relationships.put(person, Relationship.of(type));
                 } else {
                     //existing person update or retrieveOrSave
@@ -51,12 +51,12 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
         return relationships;
     }
 
-    private void updateExistingPerson(Map<Person, Relationship> relationships, RelationType type, PersonDTO sPerson) {
+    private void updateExistingPerson(Map<PersonDb, Relationship> relationships, RelationType type, PersonDTO sPerson) {
 
-        Optional<Person> optionalPerson = personRepository.findById(sPerson.getId());
+        Optional<PersonDb> optionalPerson = personRepository.findById(sPerson.getId());
 
         if (optionalPerson.isPresent()) {
-            Person personKey = optionalPerson.get();
+            PersonDb personKey = optionalPerson.get();
 
             if (relationships.containsKey(personKey)) {
                 relationships.get(personKey).getRelation().save(type);
@@ -64,7 +64,7 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
                 relationships.put(optionalPerson.get(), Relationship.of(type));
             }
         } else {
-            Person newPerson = sPersonMapper.mapResource(sPerson);
+            PersonDb newPerson = sPersonMapper.mapResource(sPerson);
             relationships.put(newPerson, Relationship.of(type));
         }
     }
@@ -75,7 +75,7 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
     }
 
     @Override
-    public Map<String, Set<PersonDTO>> mapModel(Map<Person, Relationship> relationships) {
+    public Map<String, Set<PersonDTO>> mapModel(Map<PersonDb, Relationship> relationships) {
 
         Map<String, Set<PersonDTO>> relationsByType = new HashMap<>();
 

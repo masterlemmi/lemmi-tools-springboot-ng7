@@ -1,7 +1,7 @@
 package com.lemzki.tools.people.db.service.impl;
 
 import com.lemzki.tools.people.db.exception.RelationShipPersistenceException;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.model.Relationship;
 import com.lemzki.tools.people.db.repository.RelationshipRepository;
 import com.lemzki.tools.people.db.service.RelationshipService;
@@ -17,17 +17,17 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Autowired
     RelationshipRepository relationshipRepository;
 
-    //find relationships where the person is the main
+    //find relationships where the personDb is the main
     @Override
-    public Set<Relationship> findRelationsips(Person person) {
-        return relationshipRepository.findByMain(person);
+    public Set<Relationship> findRelationsips(PersonDb personDb) {
+        return relationshipRepository.findByMain(personDb);
     }
 
     public void saveOrUpdate(Relationship relationship) {
         //this assumes that persons in the family (parent and children) and relationstypes are already in db
         //if not present, a hibernate exception is to be expected
         try {
-            Person mainPerson = relationship.getMain();
+            PersonDb mainPersonDb = relationship.getMain();
             Optional<Relationship> relationshipOptional = relationshipRepository.findByMainAndOther(relationship.getMain(), relationship.getOther());
 
             if (relationshipOptional.isPresent()) {

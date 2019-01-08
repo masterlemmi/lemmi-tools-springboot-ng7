@@ -5,7 +5,7 @@ import com.lemzki.tools.people.db.dto.ComplexPersonDTO;
 import com.lemzki.tools.people.db.dto.PersonDTO;
 import com.lemzki.tools.people.db.dto.builder.ResourceBuilder;
 import com.lemzki.tools.people.db.mapper.impl.PersonMapper;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.exception.PersonNotFoundException;
 import com.lemzki.tools.people.db.service.*;
 import com.lemzki.tools.people.db.util.RecentHolder;
@@ -94,9 +94,9 @@ public class PersonControllerImpl implements PersonController {
     public PersonDTO updatePerson(long id, PersonDTO personDTO) {
         checkIfPersonInDB(id);
 
-        Person person = personService.save(PersonMapper.mapResource(personDTO));
+        PersonDb personDb = personService.save(PersonMapper.mapResource(personDTO));
 
-        return PersonMapper.toResource(person);
+        return PersonMapper.toResource(personDb);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class PersonControllerImpl implements PersonController {
     }
 
     private void checkIfPersonInDB(long id) {
-        Optional<Person> personOptional = personService.find(id);
+        Optional<PersonDb> personOptional = personService.find(id);
 
         if (!personOptional.isPresent()) {
             throw new PersonNotFoundException();
@@ -116,8 +116,8 @@ public class PersonControllerImpl implements PersonController {
     }
 
 
-    private PersonDTO createPersonResource(Person person) {
-        return ResourceBuilder.createPersonResource(person)
+    private PersonDTO createPersonResource(PersonDb personDb) {
+        return ResourceBuilder.createPersonResource(personDb)
                 .addChildren(familyService::findChildren)
                 .addSiblings(familyService::findSiblings)
                 .addParents(familyService::findParents)

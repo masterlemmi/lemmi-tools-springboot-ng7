@@ -1,7 +1,7 @@
 package com.lemzki.tools.people.db.service.impl;
 
 
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.repository.PersonRepository;
 import com.lemzki.tools.people.db.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,28 @@ public class PersonServiceImpl implements PersonService {
     PersonRepository personRepository;
 
     @Override
-    public List<Person> findAll() {
+    public List<PersonDb> findAll() {
         return personRepository.findAll();
     }
 
     @Override
-    public Optional<Person> find(long id) {
+    public Optional<PersonDb> find(long id) {
         return personRepository.findById(id);
     }
 
     @Override
-    public Person save(Person person) {
-        return personRepository.save(person);
+    public PersonDb save(PersonDb personDb) {
+        return personRepository.save(personDb);
     }
 
     @Override
-    public Person edit(Person personResource) {
-        return this.save(personResource);
+    public List<PersonDb> saveAll(Set<PersonDb> personDb) {
+        return personRepository.saveAll(personDb);
+    }
+
+    @Override
+    public PersonDb edit(PersonDb personDbResource) {
+        return this.save(personDbResource);
     }
 
 
@@ -42,14 +47,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
 
-    //retrieve the persons if in db.. retrieveOrSave if not.. purpose is for each person returned to have their own ids
+    //retrieve the personDbs if in db.. retrieveOrSave if not.. purpose is for each person returned to have their own ids
     @Override
-    public Set<Person> retrieveOrSave(Set<Person> persons) {
+    public Set<PersonDb> retrieveOrSave(Set<PersonDb> personDbs) {
 
-        Set<Person> results = new HashSet<>();
+        Set<PersonDb> results = new HashSet<>();
 
-        for (Person person: persons){
-            Person p = this.retrieveOrSave(person);
+        for (PersonDb personDb : personDbs){
+            PersonDb p = this.retrieveOrSave(personDb);
             results.add(p);
         }
         return results;
@@ -57,14 +62,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> findByNameOrNickName(String nickNameOrName) {
+    public List<PersonDb> findByNameOrNickName(String nickNameOrName) {
         return personRepository.findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(nickNameOrName, nickNameOrName);
     }
 
     //retrieveOrSave if no id. retrieve if there is. if no result. retrieveOrSave again
     @Override
-    public Person retrieveOrSave(Person person) {
-        return person.getId() == null ?
-                this.save(person) : this.find(person.getId()).orElse(this.save(person));
+    public PersonDb retrieveOrSave(PersonDb personDb) {
+        return personDb.getId() == null ?
+                this.save(personDb) : this.find(personDb.getId()).orElse(this.save(personDb));
     }
 }

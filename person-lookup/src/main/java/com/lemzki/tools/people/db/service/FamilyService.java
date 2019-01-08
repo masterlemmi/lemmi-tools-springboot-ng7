@@ -1,18 +1,18 @@
 package com.lemzki.tools.people.db.service;
 
 import com.lemzki.tools.people.db.model.Family;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 
 import java.util.List;
 import java.util.Set;
 
 public interface FamilyService {
 
-    List<Person> findChildren(Person person);
+    List<PersonDb> findChildren(PersonDb personDb);
 
-    Set<Person> findParents(Person person);
+    Set<PersonDb> findParents(PersonDb personDb);
 
-    List<Person> findSiblings(Person person);
+    List<PersonDb> findSiblings(PersonDb personDb);
 
     void saveOrUpdate(Family family);
 

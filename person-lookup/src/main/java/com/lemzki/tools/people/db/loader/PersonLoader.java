@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import com.jasongoodwin.monads.Try;
 import com.lemzki.tools.people.db.enums.Gender;
 import com.lemzki.tools.people.db.model.Family;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.model.RelationType;
 import com.lemzki.tools.people.db.model.Relationship;
 import com.lemzki.tools.people.db.repository.FamilyRepository;
@@ -67,8 +67,8 @@ public class PersonLoader {
 
             CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in).forEach(
                     record -> {
-                        Person person = createPerson(record);
-                        personRepository.save(person);
+                        PersonDb personDb = createPerson(record);
+                        personRepository.save(personDb);
                     }
             );
 
@@ -81,26 +81,26 @@ public class PersonLoader {
 
 
     private String[] resolutions = {"100", "200", "300", "150", "250", "350"};
-    private Person createPerson(CSVRecord record) {
-        Person person = null;
+    private PersonDb createPerson(CSVRecord record) {
+        PersonDb personDb = null;
         try {
-            person = new Person();
-            person.setAddedBy(LemID.TEMP);
-            person.setName(record.get("NAME"));
+            personDb = new PersonDb();
+            personDb.setAddedBy(LemID.TEMP);
+            personDb.setName(record.get("NAME"));
             int index = random.nextInt(resolutions.length);
-            person.setPhotoUrl("https://source.unsplash.com/random/" + index + "x" + index);
-            person.setNickname(record.get("NICKNAME"));
-            person.setGender(Gender.getEnum(record.get("GENDER")));
-            person.setDateOfBirth(getDateFromString(record.get("DOB")));
+            personDb.setPhotoUrl("https://source.unsplash.com/random/" + index + "x" + index);
+            personDb.setNickname(record.get("NICKNAME"));
+            personDb.setGender(Gender.getEnum(record.get("GENDER")));
+            personDb.setDateOfBirth(getDateFromString(record.get("DOB")));
 
-            if(person.getNickname().equals("pencing")){
-                person.setDateOfDeath(LocalDate.of(1990, 5, 12));
+            if(personDb.getNickname().equals("pencing")){
+                personDb.setDateOfDeath(LocalDate.of(1990, 5, 12));
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage() + "Unable to create Person createFrom " + record);
+            System.out.println(e.getMessage() + "Unable to create PersonDb createFrom " + record);
         }
-        return person;
+        return personDb;
     }
 
     private LocalDate  getDateFromString(String date){
@@ -108,18 +108,18 @@ public class PersonLoader {
     }
 
     private void setChildren() {
-        List<Person> everyone = personRepository.findAll();
-        Map<String, List<Person>> map = everyone.stream().collect(Collectors.groupingBy(Person::getNickname));
+        List<PersonDb> everyone = personRepository.findAll();
+        Map<String, List<PersonDb>> map = everyone.stream().collect(Collectors.groupingBy(PersonDb::getNickname));
 
-        Person lem = map.get("lem").get(0);
-        Person rey = map.get("rey").get(0);
-        Person chichi = map.get("chichi").get(0);
-        Person cel = map.get("cel").get(0);
-        Person ace = map.get("ace").get(0);
-        Person zita = map.get("zita").get(0);
-        Person pencing = map.get("pencing").get(0);
-        Person mai = map.get("mai").get(0);
-        Person isli = map.get("isli").get(0);
+        PersonDb lem = map.get("lem").get(0);
+        PersonDb rey = map.get("rey").get(0);
+        PersonDb chichi = map.get("chichi").get(0);
+        PersonDb cel = map.get("cel").get(0);
+        PersonDb ace = map.get("ace").get(0);
+        PersonDb zita = map.get("zita").get(0);
+        PersonDb pencing = map.get("pencing").get(0);
+        PersonDb mai = map.get("mai").get(0);
+        PersonDb isli = map.get("isli").get(0);
 
         Family parentLem = new Family(lem);
         parentLem.childrenAre(chichi);

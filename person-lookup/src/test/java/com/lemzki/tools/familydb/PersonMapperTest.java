@@ -17,11 +17,11 @@ public class PersonMapperTest {
     PersonRepository personRepository;
 
     @Autowired
-    ResourceMapper<ComplexPersonDTO, Person> mapper;
+    ResourceMapper<ComplexPersonDTO, PersonDb> mapper;
 
     @Test
     public void mapPersonModel(){
-        Person person = personRepository.findByNickname("lem");
+        PersonDb person = personRepository.findByNickname("lem");
         ComplexPersonDTO dto = mapper.mapModel(person);
         System.out.println(dto);
     }

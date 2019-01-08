@@ -1,22 +1,21 @@
 package com.lemzki.tools.people.db.dto.builder;
 
 import com.lemzki.tools.people.db.dto.PersonDTO;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.model.Relationship;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
 public interface PersonBuilder {
-    PersonBuilder addChildren(Function<Person, Collection<Person>> childrenFunction);
+    PersonBuilder addChildren(Function<PersonDb, Collection<PersonDb>> childrenFunction);
 
-    PersonBuilder addParents(Function<Person, Collection<Person>> parentFunction);
+    PersonBuilder addParents(Function<PersonDb, Collection<PersonDb>> parentFunction);
 
-    PersonBuilder addSiblings(Function<Person, Collection<Person>> siblingFunction);
+    PersonBuilder addSiblings(Function<PersonDb, Collection<PersonDb>> siblingFunction);
 
-    PersonBuilder addRelationships(Function<Person, Set<Relationship>> relationFunction);
+    PersonBuilder addRelationships(Function<PersonDb, Set<Relationship>> relationFunction);
 
     PersonDTO build();
 }

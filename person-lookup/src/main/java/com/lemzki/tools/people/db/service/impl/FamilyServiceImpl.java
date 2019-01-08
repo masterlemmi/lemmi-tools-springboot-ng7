@@ -2,7 +2,7 @@ package com.lemzki.tools.people.db.service.impl;
 
 import com.google.common.collect.Sets;
 import com.lemzki.tools.people.db.model.Family;
-import com.lemzki.tools.people.db.model.Person;
+import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.repository.FamilyRepository;
 import com.lemzki.tools.people.db.exception.FamilyPersistenceException;
 import com.lemzki.tools.people.db.service.FamilyService;
@@ -50,8 +50,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Person> findChildren(Person parent) {
-        Set<Person> children = familyRepository.findByParent(parent)
+    public List<PersonDb> findChildren(PersonDb parent) {
+        Set<PersonDb> children = familyRepository.findByParent(parent)
                 .map(Family::getChildren)
                 .orElse(Sets.newHashSet());
 
@@ -59,28 +59,28 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Person> findSiblings(Person person) {
-        Set<Person> siblings = familyRepository.findParents(person)
+    public List<PersonDb> findSiblings(PersonDb personDb) {
+        Set<PersonDb> siblings = familyRepository.findParents(personDb)
                 .stream()
                 .map(Family::getChildren)
                 .flatMap(Set::stream)
-                .filter(not(p -> p.equals(person)))
+                .filter(not(p -> p.equals(personDb)))
                 .collect(toSet());
 
         return sortedByBirthDate(siblings);
     }
 
     @Override
-    public Set<Person> findParents(Person person) {
-        return familyRepository.findParents(person)
+    public Set<PersonDb> findParents(PersonDb personDb) {
+        return familyRepository.findParents(personDb)
                 .stream()
                 .map(Family::getParent)
                 .collect(toSet());
     }
 
-    private List<Person> sortedByBirthDate(Collection<Person> people){
+    private List<PersonDb> sortedByBirthDate(Collection<PersonDb> people){
         return new ArrayList<>(people).stream()
-                .sorted(comparing(Person::getDateOfBirth))
+                .sorted(comparing(PersonDb::getDateOfBirth))
                 .collect(toList());
     }
 
