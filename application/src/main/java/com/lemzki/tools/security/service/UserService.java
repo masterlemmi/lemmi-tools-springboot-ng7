@@ -2,8 +2,11 @@ package com.lemzki.tools.security.service;
 
 import com.lemzki.tools.security.model.User;
 
-public interface UserService {
-    void save(User user);
+import java.util.Optional;
 
-    User findByUsername(String username);
+public interface UserService {
+    User save(User user);
+
+    Optional<User> findByGoogleId(String googleId);
+
 }
