@@ -5,11 +5,14 @@ import com.lemzki.tools.people.db.enums.Gender;
 import com.lemzki.tools.people.db.exception.GenderRequiredException;
 import com.lemzki.tools.people.db.mapper.Result;
 import com.lemzki.tools.people.db.model.PersonDb;
-import com.lemzki.tools.people.db.validator.GenderValidator;
+import com.lemzki.tools.people.db.validator.GenderExtractor;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 public class GoogleResourceMapper {
     public static Result map(com.google.api.services.people.v1.model.Person gPerson) {
@@ -55,21 +58,15 @@ public class GoogleResourceMapper {
         if(CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) throw new GenderRequiredException();
 
         //check genders first because that would have been set manually somewhere
-       for (com.google.api.services.people.v1.model.Gender gender: genders){
-           String value = gender.getValue(); //female or male
-       }
+       Set<Gender> genderSet = genders.stream()
+               .map(gender -> Gender.getEnum(gender.getValue()))
+               .collect(toSet());
 
+       if(genderSet.size() == 1) return genderSet.iterator().next();
 
+       GenderExtractor extractor = new GenderExtractor.Builder().from(genders).orFrom(relations).build();
 
-
-
-
-
-
-
-
-
-        return null;
+       return extractor.extractGender();
     }
 
 

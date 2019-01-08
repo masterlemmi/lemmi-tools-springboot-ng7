@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>com.lemzki.tools.people.db</groupId>
-            <artifactId>personDb-lookup</artifactId>
+            <artifactId>person-lookup</artifactId>
             <version>${project.version}</version>
         </dependency>
 
