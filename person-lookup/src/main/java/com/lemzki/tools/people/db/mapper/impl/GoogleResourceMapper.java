@@ -1,8 +1,8 @@
 package com.lemzki.tools.people.db.mapper.impl;
 
 import com.google.api.services.people.v1.model.*;
+import com.jasongoodwin.monads.Try;
 import com.lemzki.tools.people.db.enums.GenderE;
-import com.lemzki.tools.people.db.exception.GenderRequiredException;
 import com.lemzki.tools.people.db.mapper.Result;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.validator.GenderExtractor;
@@ -10,11 +10,15 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
+import java.util.function.Function;
 
-import static java.util.stream.Collectors.toSet;
+import static com.lemzki.tools.util.StreamUtils.sameAs;
 
 public class GoogleResourceMapper {
+
+    private static final String RANDOM_PHOTO = "https://source.unsplash.com/random/300x300";
+    private static final int RANDOM_YEAR = 1986;
+
     public static Result map(com.google.api.services.people.v1.model.Person gPerson) {
         Result result;
         PersonDb personDb = new PersonDb();
@@ -24,57 +28,83 @@ public class GoogleResourceMapper {
             personDb.setGender(determineGender(gPerson.getGenders(), gPerson.getRelations()));
             personDb.setDateOfBirth(determineDateOfBirth(gPerson.getBirthdays()));
             personDb.setNickname(determineNicknames(gPerson.getNicknames()));
-            personDb.setDateOfDeath(determineDateOfDeath(gPerson.getUserDefined()));
+            personDb.setDateOfDeath(determineDateOfDeath(gPerson.getEvents()));
             personDb.setPhotoUrl(determinePhotoUrl(gPerson.getPhotos()));
             result = new Result.Success(personDb);
         } catch (Exception e) {
             result = new Result.Fail(personDb, e.getMessage());
+            e.printStackTrace();
         }
 
         return result;
     }
 
-    private static String determinePhotoUrl(List<Photo> photos) {
-        return null;
-    }
-
-    private static LocalDate determineDateOfDeath(List<UserDefined> userDefined) {
-        return null;
-    }
-
-    private static String determineNicknames(List<Nickname> nicknames) {
-        return null;
-    }
 
     private static String determineNames(List<Name> names) {
-        return "";
+        if(CollectionUtils.isEmpty(names)) return "Unknown";
+        return names.stream()
+                .map(Name::getDisplayName)
+                .findFirst()
+                .orElse("Unknown");
     }
 
-    //There is no gender field in the mobile app so using Relationship Custom Label as placeholder for gender
+    //There is no gender field in the contacts mobile app so using Relationship Custom Label as placeholder for gender
     private static GenderE determineGender(List<com.google.api.services.people.v1.model.Gender> genders,
                                            List<Relation> relations) {
 
+        if (CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) {
+            return GenderE.UNDETERMINED;
+            //throw new GenderRequiredException();
+        }
 
-        if (CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) throw new GenderRequiredException();
-
-        //check genders first because that would have been set manually somewhere
-        Set<GenderE> genderSet = genders.stream()
-
-                .map(gender -> GenderE.getEnum(gender.getValue()))
-                .collect(toSet());
-
-        if (genderSet.size() == 1) return genderSet.iterator().next();
-
-        GenderExtractor extractor = new GenderExtractor.Builder().from(genders).orFrom(relations).build();
+        GenderExtractor extractor = new GenderExtractor.Builder().from(genders).ifFailedFrom(relations).build();
 
         return extractor.extractGender();
     }
 
-
-    private static LocalDate determineDateOfBirth(List<Birthday> birthday) {
-
-        return null;
+    private static String determinePhotoUrl(List<Photo> photos) {
+        if(CollectionUtils.isEmpty(photos)) return RANDOM_PHOTO;
+        return photos.stream()
+                .map(Photo::getUrl)
+                .findFirst()
+                .orElse(RANDOM_PHOTO);
     }
 
+    private static String determineNicknames(List<Nickname> nicknames) {
+        if(CollectionUtils.isEmpty(nicknames)) return "";
+        return nicknames.stream()
+                .map(Nickname::getValue)
+                .findFirst()
+                .orElse("");
+    }
+
+    private static LocalDate determineDateOfDeath(List<Event> events) {
+        if(CollectionUtils.isEmpty(events)) return null;
+        return events.stream()
+                .filter(sameAs(Event::getType, "Death"))
+                .findFirst()
+                .map(Event::getDate)
+                .map(toLocalDate)
+                .orElse(null);
+    }
+
+
+    private static LocalDate determineDateOfBirth(List<Birthday> birthdays) {
+        if(CollectionUtils.isEmpty(birthdays)) return null;
+        return birthdays.stream()
+                .findFirst()
+                .map(Birthday::getDate)
+                .map(toLocalDate)
+                .orElse(null);
+    }
+
+    private static Function<Date,LocalDate> toLocalDate = d ->
+         Try.ofFailable(()->
+                 LocalDate.of(
+                     d.getYear() == null? RANDOM_YEAR: d.getYear(),
+                         d.getMonth(),
+                         d.getDay()
+                 )
+         ).orElse(null);
 
 }

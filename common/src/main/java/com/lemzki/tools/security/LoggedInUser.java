@@ -4,13 +4,8 @@ import com.lemzki.tools.security.model.User;
 
 @FunctionalInterface
 public interface LoggedInUser {
-    User getUser();
+    User get();
 
-    static LoggedInUser anonymous(){
-        return ()->{
-            User user = new User();
-            user.setName("Anonymous");
-            return user;
-        };
-    }
+     LoggedInUser ANONYMOUS = ()->User.ANONYMOUS;
+
 }

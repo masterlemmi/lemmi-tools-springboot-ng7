@@ -10,7 +10,9 @@ public abstract class Result {
 
     public boolean passed(){return success;}
 
-    public PersonDb data() {return mapped;}
+    public PersonDb get() {return mapped;}
+
+    public String error() {return this.error;}
 
     public static class Fail extends Result {
         public Fail(PersonDb mapped, String error) {

@@ -8,6 +8,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.people.v1.PeopleService;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.mapper.UserMapper;
+import com.lemzki.tools.security.model.User;
+import com.lemzki.tools.security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -19,9 +22,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Map;
 
 @Configuration
 public class GoogleConfig {
+
+    @Autowired
+    UserService userService;
 
     @Bean
     JsonFactory jsonFactory() {
@@ -36,7 +43,7 @@ public class GoogleConfig {
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
      GoogleCredential googleCredential() {
-        String accessToken =  loggedInUser().getUser().getAccessToken();
+        String accessToken =  loggedInUser().get().getAccessToken();
         return new GoogleCredential().setAccessToken(accessToken);
     }
 
@@ -47,11 +54,14 @@ public class GoogleConfig {
 
         if (auth instanceof OAuth2Authentication){
             OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) auth;
-            return () -> UserMapper.mapFrom(oAuth2Authentication);
+
+            String googleId = ((Map<String, String>) oAuth2Authentication.getUserAuthentication().getDetails()).get("id");
+
+            return () ->  userService.findByGoogleId(googleId).orElse(User.ANONYMOUS);
         }
 
         System.out.println("Logged in anonymously or wiht something else" + auth);
-        return LoggedInUser.anonymous();
+        return LoggedInUser.ANONYMOUS;
     }
 
 

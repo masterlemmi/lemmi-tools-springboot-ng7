@@ -24,7 +24,7 @@ public class PersonDb {
     private LocalDate dateOfBirth;
     private LocalDate dateOfDeath;
 
-    private String resourceName;
+    private @NonNull String resourceName;
 
     @ManyToOne
     private User user;

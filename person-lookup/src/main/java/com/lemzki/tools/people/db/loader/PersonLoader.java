@@ -93,6 +93,7 @@ public class PersonLoader {
             personDb.setNickname(record.get("NICKNAME"));
             personDb.setGender(GenderE.getEnum(record.get("GENDER")));
             personDb.setDateOfBirth(getDateFromString(record.get("DOB")));
+            personDb.setResourceName("res_name");
 
             if(personDb.getNickname().equals("pencing")){
                 personDb.setDateOfDeath(LocalDate.of(1990, 5, 12));

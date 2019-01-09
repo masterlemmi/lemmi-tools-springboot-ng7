@@ -1,6 +1,7 @@
 package com.lemzki.tools.util;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -10,9 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 // If set become more than initialized limit, it will remove the last one before adding the new entry
 //needs imporovement.. threadsafety plus resource too much. scope must be session based so it can hold the recent data
 //from the same sessin
-@Component
-@Scope("session")
-public class RecentHolder<E>  {
+public abstract class RecentHolder<E>  {
     private LinkedHashSet<E> theSet = new LinkedHashSet<>();
     private List<E> theList = new ArrayList<>();
     private int limit = 10;
@@ -20,7 +19,6 @@ public class RecentHolder<E>  {
 
     public RecentHolder(){
         this(10);
-
     }
 
     public RecentHolder(int limit){
