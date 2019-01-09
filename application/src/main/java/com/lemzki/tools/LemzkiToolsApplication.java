@@ -33,6 +33,8 @@ public class LemzkiToolsApplication {
         return args -> {
             logger.info("STARTED INIT RUNNER");
             logger.debug("STARTED INIT RUMMER DBEUG");
+            logger.error("STARTED INIT RUMMER ERROR");
+            logger.warn("STARTED INIT RUMMER warn");
             //personLoader.loadPersons();
         };
     }
