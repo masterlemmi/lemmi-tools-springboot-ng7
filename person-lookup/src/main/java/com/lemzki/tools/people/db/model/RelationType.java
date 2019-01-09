@@ -1,11 +1,8 @@
 package com.lemzki.tools.people.db.model;
 
-import com.lemzki.tools.people.db.enums.Gender;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Getter @Setter

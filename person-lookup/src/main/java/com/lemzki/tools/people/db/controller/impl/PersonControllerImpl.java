@@ -8,7 +8,7 @@ import com.lemzki.tools.people.db.mapper.impl.PersonMapper;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.exception.PersonNotFoundException;
 import com.lemzki.tools.people.db.service.*;
-import com.lemzki.tools.people.db.util.RecentHolder;
+import com.lemzki.tools.util.RecentHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

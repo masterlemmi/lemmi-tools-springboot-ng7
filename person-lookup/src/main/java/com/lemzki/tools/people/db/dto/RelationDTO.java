@@ -1,6 +1,6 @@
 package com.lemzki.tools.people.db.dto;
 
-import com.lemzki.tools.people.db.enums.Gender;
+import com.lemzki.tools.people.db.enums.GenderE;
 import lombok.*;
 
 @Getter
@@ -11,5 +11,5 @@ import lombok.*;
 public class RelationDTO {
     private @NonNull PersonDTO other;
     private @NonNull String relation;
-    private @NonNull Gender gender;
+    private @NonNull GenderE gender;
 }

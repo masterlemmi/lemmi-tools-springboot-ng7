@@ -3,7 +3,7 @@ package com.lemzki.tools.people.db.loader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.jasongoodwin.monads.Try;
-import com.lemzki.tools.people.db.enums.Gender;
+import com.lemzki.tools.people.db.enums.GenderE;
 import com.lemzki.tools.people.db.model.Family;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.model.RelationType;
@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 @Component
 public class PersonLoader {
 
+    private static final LocalDate DEFAULT_DATE = LocalDate.of(1986, 3, 31);
     @Autowired
     PersonRepository personRepository;
 
@@ -90,7 +91,7 @@ public class PersonLoader {
             int index = random.nextInt(resolutions.length);
             personDb.setPhotoUrl("https://source.unsplash.com/random/" + index + "x" + index);
             personDb.setNickname(record.get("NICKNAME"));
-            personDb.setGender(Gender.getEnum(record.get("GENDER")));
+            personDb.setGender(GenderE.getEnum(record.get("GENDER")));
             personDb.setDateOfBirth(getDateFromString(record.get("DOB")));
 
             if(personDb.getNickname().equals("pencing")){
@@ -104,7 +105,7 @@ public class PersonLoader {
     }
 
     private LocalDate  getDateFromString(String date){
-        return Try.ofFailable(()->LocalDate.parse(date, formatter)).orElse(LocalDate.MIN);
+        return Try.ofFailable(()->LocalDate.parse(date, formatter)).orElse(DEFAULT_DATE);
     }
 
     private void setChildren() {

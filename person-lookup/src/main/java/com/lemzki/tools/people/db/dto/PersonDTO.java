@@ -1,8 +1,6 @@
 package com.lemzki.tools.people.db.dto;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.lemzki.tools.people.db.enums.Gender;
+import com.lemzki.tools.people.db.enums.GenderE;
 import lombok.*;
 
 @Getter
@@ -19,6 +17,6 @@ public class PersonDTO {
     private Long id;
     private String photoUrl;
     private @NonNull String name;
-    private @NonNull Gender gender;
+    private @NonNull GenderE gender;
 
 }

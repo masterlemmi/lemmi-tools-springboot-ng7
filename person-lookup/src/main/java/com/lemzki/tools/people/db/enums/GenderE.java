@@ -1,26 +1,26 @@
 package com.lemzki.tools.people.db.enums;
 
-import com.lemzki.tools.people.db.exception.GenderRequiredException;
+import com.lemzki.tools.people.db.exception.GenderUndeterminedException;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-public enum Gender {
+public enum GenderE {
     MALE("M"), FEMALE("F"), UNSPECIFIED("-");
 
     String abbr;
 
-    Gender(String abbr){
+    GenderE(String abbr){
         this.abbr = abbr;
     }
 
-    public static Gender getEnum(String gender) {
+    public static GenderE getEnum(String gender) {
 
-        return Arrays.stream(values()).filter(determine(gender)).findAny().orElseThrow(GenderRequiredException::new);
+        return Arrays.stream(values()).filter(determine(gender)).findAny().orElseThrow(GenderUndeterminedException::new);
     }
 
-    private static Predicate<Gender> determine(String gender) {
+    private static Predicate<GenderE> determine(String gender) {
         return genderEnum -> !StringUtils.isEmpty(gender) && gender.toUpperCase().startsWith(genderEnum.abbr);
     }
 

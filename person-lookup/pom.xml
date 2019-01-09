@@ -44,7 +44,7 @@
 
         <dependency>
             <groupId>com.lemzki.tools</groupId>
-            <artifactId>models</artifactId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -10,10 +10,10 @@ import com.lemzki.tools.people.db.repository.RelationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.com.lemzki.tools.security.util.HashMap;
+import java.com.lemzki.tools.security.util.Map;
+import java.com.lemzki.tools.security.util.Optional;
+import java.com.lemzki.tools.security.util.Set;
 
 @Component("relationMapper")
 public class RelationshipMapper implements ResourceMapper<Map<String, Set<PersonDTO>>, Map<PersonDb, Relationship>> {

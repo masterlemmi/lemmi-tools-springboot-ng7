@@ -1,19 +1,19 @@
 package com.lemzki.tools.people.db.service.impl;
 
 import com.google.common.collect.Sets;
+import com.lemzki.tools.people.db.exception.FamilyPersistenceException;
 import com.lemzki.tools.people.db.model.Family;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.repository.FamilyRepository;
-import com.lemzki.tools.people.db.exception.FamilyPersistenceException;
 import com.lemzki.tools.people.db.service.FamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static com.lemzki.tools.people.db.util.LemUtils.*;
-import static java.util.Comparator.*;
-import static java.util.stream.Collectors.*;
+import static com.lemzki.tools.util.StreamUtils.*;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @Service

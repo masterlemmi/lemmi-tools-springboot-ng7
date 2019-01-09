@@ -1,6 +1,5 @@
 package com.lemzki.tools.people.db.dto;
 
-import com.lemzki.tools.people.db.enums.Gender;
 import lombok.*;
 
 import java.time.LocalDate;

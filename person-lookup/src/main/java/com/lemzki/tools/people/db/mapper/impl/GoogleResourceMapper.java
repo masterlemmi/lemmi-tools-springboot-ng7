@@ -1,7 +1,7 @@
 package com.lemzki.tools.people.db.mapper.impl;
 
 import com.google.api.services.people.v1.model.*;
-import com.lemzki.tools.people.db.enums.Gender;
+import com.lemzki.tools.people.db.enums.GenderE;
 import com.lemzki.tools.people.db.exception.GenderRequiredException;
 import com.lemzki.tools.people.db.mapper.Result;
 import com.lemzki.tools.people.db.model.PersonDb;
@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toSet;
 
 public class GoogleResourceMapper {
     public static Result map(com.google.api.services.people.v1.model.Person gPerson) {
-        Result result ;
+        Result result;
         PersonDb personDb = new PersonDb();
         try {
             personDb.setResourceName(gPerson.getResourceName());
@@ -27,7 +27,7 @@ public class GoogleResourceMapper {
             personDb.setDateOfDeath(determineDateOfDeath(gPerson.getUserDefined()));
             personDb.setPhotoUrl(determinePhotoUrl(gPerson.getPhotos()));
             result = new Result.Success(personDb);
-        } catch (Exception e){
+        } catch (Exception e) {
             result = new Result.Fail(personDb, e.getMessage());
         }
 
@@ -51,32 +51,30 @@ public class GoogleResourceMapper {
     }
 
     //There is no gender field in the mobile app so using Relationship Custom Label as placeholder for gender
-    private static Gender determineGender(List<com.google.api.services.people.v1.model.Gender> genders,
-                                          List<Relation> relations) {
+    private static GenderE determineGender(List<com.google.api.services.people.v1.model.Gender> genders,
+                                           List<Relation> relations) {
 
 
-        if(CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) throw new GenderRequiredException();
+        if (CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) throw new GenderRequiredException();
 
         //check genders first because that would have been set manually somewhere
-       Set<Gender> genderSet = genders.stream()
-               .map(gender -> Gender.getEnum(gender.getValue()))
-               .collect(toSet());
+        Set<GenderE> genderSet = genders.stream()
 
-       if(genderSet.size() == 1) return genderSet.iterator().next();
+                .map(gender -> GenderE.getEnum(gender.getValue()))
+                .collect(toSet());
 
-       GenderExtractor extractor = new GenderExtractor.Builder().from(genders).orFrom(relations).build();
+        if (genderSet.size() == 1) return genderSet.iterator().next();
 
-       return extractor.extractGender();
+        GenderExtractor extractor = new GenderExtractor.Builder().from(genders).orFrom(relations).build();
+
+        return extractor.extractGender();
     }
 
 
-
-
-    private static LocalDate determineDateOfBirth(List<Birthday> birthday){
+    private static LocalDate determineDateOfBirth(List<Birthday> birthday) {
 
         return null;
     }
-
 
 
 }

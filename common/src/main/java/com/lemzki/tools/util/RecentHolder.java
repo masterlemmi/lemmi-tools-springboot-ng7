@@ -1,13 +1,17 @@
-package com.lemzki.tools.people.db.util;
+package com.lemzki.tools.util;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-//adds items to set and if list set become more than initialized limit, it will remove before adding.
-//needs imporovement.. threadsafety plus resource too much
+//This is designed to hold recent items by adding items to a set in order.
+// If set become more than initialized limit, it will remove the last one before adding the new entry
+//needs imporovement.. threadsafety plus resource too much. scope must be session based so it can hold the recent data
+//from the same sessin
 @Component
+@Scope("session")
 public class RecentHolder<E>  {
     private LinkedHashSet<E> theSet = new LinkedHashSet<>();
     private List<E> theList = new ArrayList<>();
