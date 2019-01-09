@@ -15,11 +15,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication(scanBasePackages = "com.lemzki.tools")
 @RestController
+@EnableAsync
 public class LemzkiToolsApplication {
 
     private static final Logger logger = LogManager.getLogger(LemzkiToolsApplication.class);
@@ -65,7 +67,12 @@ public class LemzkiToolsApplication {
     public String testEport(){
         return apiService.exportContactsToGoogle();
     }
-
+    @GetMapping("/testAsync")
+    public String testAsync() throws InterruptedException {
+         apiService.syncLocalDBWithAPI();
+        System.out.println("RETURNED FROM ASYNC");
+        return  "DONE";
+    }
 
 }
 

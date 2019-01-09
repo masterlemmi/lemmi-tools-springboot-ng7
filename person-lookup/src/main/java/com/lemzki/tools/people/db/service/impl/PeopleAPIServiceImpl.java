@@ -14,10 +14,12 @@ import com.lemzki.tools.security.LoggedInUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.partitioningBy;
@@ -119,7 +121,11 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
     }
 
     @Override
-    public void syncLocalDBWithAPI() {
+    @Async
+    public void syncLocalDBWithAPI() throws InterruptedException {
+        System.out.println("STARTED ASYNC AM I REALLY ASYNC");
+        TimeUnit.SECONDS.sleep(15);
+        System.out.println("After 15 seconds elapsed");
 
     }
 }

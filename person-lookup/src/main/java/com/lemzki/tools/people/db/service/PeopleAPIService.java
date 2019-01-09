@@ -7,5 +7,5 @@ public interface PeopleAPIService {
 
     String exportContactsToGoogle();
 
-    void syncLocalDBWithAPI();
+    void syncLocalDBWithAPI() throws InterruptedException;
 }
