@@ -2,8 +2,7 @@ package com.lemzki.tools;
 
 
 import com.lemzki.tools.people.db.loader.PersonLoader;
-import com.lemzki.tools.people.db.service.PeopleAPIService;
-import com.lemzki.tools.people.db.service.impl.PeopleAPIServiceImpl;
+import com.lemzki.tools.people.db.service.google.PeopleAPIService;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.model.User;
 import org.apache.logging.log4j.LogManager;
@@ -69,9 +68,8 @@ public class LemzkiToolsApplication {
     }
     @GetMapping("/testAsync")
     public String testAsync() throws InterruptedException {
-         apiService.syncLocalDBWithAPI();
-        System.out.println("RETURNED FROM ASYNC");
-        return  "DONE";
+        return apiService.exportContactsToGoogle();
+
     }
 
 }

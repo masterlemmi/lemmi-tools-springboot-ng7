@@ -1,4 +1,4 @@
-package com.lemzki.tools.people.db.service;
+package com.lemzki.tools.people.db.service.google;
 
 public interface PeopleAPIService {
 

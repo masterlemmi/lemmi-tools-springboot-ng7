@@ -1,7 +1,7 @@
 package com.lemzki.tools.people.db.controller.impl;
 
 import com.lemzki.tools.people.db.controller.PeopleApiController;
-import com.lemzki.tools.people.db.service.PeopleAPIService;
+import com.lemzki.tools.people.db.service.google.PeopleAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

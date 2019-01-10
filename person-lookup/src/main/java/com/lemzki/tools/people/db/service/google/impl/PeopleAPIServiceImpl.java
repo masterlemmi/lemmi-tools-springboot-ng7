@@ -1,25 +1,24 @@
-package com.lemzki.tools.people.db.service.impl;
+package com.lemzki.tools.people.db.service.google.impl;
 
 
 import com.google.api.services.people.v1.PeopleService;
-import com.google.api.services.people.v1.model.EmailAddress;
 import com.google.api.services.people.v1.model.Person;
 import com.lemzki.tools.people.db.mapper.Result;
-import com.lemzki.tools.people.db.mapper.impl.GoogleContactUpdater;
 import com.lemzki.tools.people.db.mapper.impl.GoogleResourceMapper;
 import com.lemzki.tools.people.db.model.PersonDb;
-import com.lemzki.tools.people.db.service.PeopleAPIService;
 import com.lemzki.tools.people.db.service.PersonService;
+import com.lemzki.tools.people.db.service.google.PeopleAPIService;
+import com.lemzki.tools.people.db.service.google.PeopleAPIBatchUpdater;
 import com.lemzki.tools.security.LoggedInUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.partitioningBy;
@@ -33,8 +32,7 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
     private final static String ME = "people/me";
     private final static String FIELDS = "urls,photos,phoneNumbers,userDefined,names,relations," +
             "nicknames,birthdays,coverPhotos,emailAddresses,genders,events";
-    private final static String UPDATE_FIELDS = "names,relations," +
-            "nicknames,birthdays,genders,events";
+
     private static final Integer PAGE_SIZE = 2000;
 
     @Autowired
@@ -45,6 +43,12 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    PeopleAPIBatchUpdater peopleAPIBatchUpdater;
+
+    @Value("${google.people.api.write.limit}")
+    int limit;
 
     private List<Person> getList() {
         List<Person> list = new ArrayList<>();
@@ -94,38 +98,55 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
                 }).collect(Collectors.joining("/n"));
     }
 
+
+
     @Override
     public String exportContactsToGoogle() {
-        List<PersonDb> people = personService.findAll();
-        long success = people.stream().map(personDb -> {
-            Person p = null;
-            try {
-                Person contactToUpdate = peopleService.people().get(personDb.getResourceName()).setPersonFields(FIELDS).execute();
-                GoogleContactUpdater.updateContact(contactToUpdate, personDb);
 
-                p = peopleService.people()
-                        .updateContact(contactToUpdate.getResourceName(), contactToUpdate)
-                        .setUpdatePersonFields(FIELDS)
-                        .execute();
+        if(peopleAPIBatchUpdater.isUpdateInProgress()){
+            return peopleAPIBatchUpdater.getLogs();
+        }
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return p;
-        }).filter(Objects::nonNull)
-                .count();
 
-        return "Exported: " + success + "/" + people.size();
+        //FOR TESTING CUT LIST To 35 and limit to 10
+        List<PersonDb> list = personService.findAll().subList(0, 35);
+        this.limit = 10;
+
+
+        if (CollectionUtils.isEmpty(list)) {
+            logger.info("PersonList is Empty. Nothing to Export");
+            return "No People to expoort";
+        }
+
+        List<List<PersonDb>> groups = splitListByGoogleLimit(list);
+
+       // hand it off to updater and return
+        try {
+            peopleAPIBatchUpdater.update(groups);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int estimateDuration = list.size() / limit;
+        return "Handed off to Updater Service for Asynchronous processing. Estimate Duration:" + estimateDuration + " mins.";
 
     }
 
     @Override
-    @Async
     public void syncLocalDBWithAPI() throws InterruptedException {
-        System.out.println("STARTED ASYNC AM I REALLY ASYNC");
-        TimeUnit.SECONDS.sleep(15);
-        System.out.println("After 15 seconds elapsed");
 
+    }
+
+    private List<List<PersonDb>> splitListByGoogleLimit(List<PersonDb> list) {
+        List<List<PersonDb>> splitPeople = new ArrayList<>();
+        //split the people to the google limit
+        for (int i = 0, len = list.size(); i < len; i += limit) {
+            int end = i + limit > len ? len : i + limit;
+            splitPeople.add(list.subList(i, end));
+        }
+        return splitPeople;
     }
 }
