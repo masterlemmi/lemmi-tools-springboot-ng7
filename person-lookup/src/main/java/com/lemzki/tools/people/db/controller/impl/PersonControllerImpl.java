@@ -90,7 +90,7 @@ public class PersonControllerImpl implements PersonController {
     }
 
 
-    //only update the actual person and not other relationships/family/etc.. those can be updated via separate controller
+    //only execute the actual person and not other relationships/family/etc.. those can be updated via separate controller
     @Override
     public PersonDTO updatePerson(long id, PersonDTO personDTO) {
         checkIfPersonInDB(id);

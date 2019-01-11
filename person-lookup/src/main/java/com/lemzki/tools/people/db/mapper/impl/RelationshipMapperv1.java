@@ -42,7 +42,7 @@ public class RelationshipMapper implements ResourceMapper<Map<String, Set<Person
                     PersonDb person = sPersonMapper.mapResource(sPerson);
                     relationships.put(person, Relationship.of(type));
                 } else {
-                    //existing person update or retrieveOrSave
+                    //existing person execute or retrieveOrSave
                     updateExistingPerson(relationships, type, sPerson);
                 }
             });

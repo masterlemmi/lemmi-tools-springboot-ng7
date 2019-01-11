@@ -1,14 +1,15 @@
-package com.lemzki.tools.people.db.service.google.impl;
+package com.lemzki.tools.people.db.google.service.impl;
 
 
 import com.google.api.services.people.v1.PeopleService;
 import com.google.api.services.people.v1.model.Person;
+import com.lemzki.tools.people.db.google.service.PeopleAPIBatchUpdater;
+import com.lemzki.tools.people.db.google.service.PeopleAPIService;
+import com.lemzki.tools.people.db.google.service.PeopleServiceRetriever;
 import com.lemzki.tools.people.db.mapper.Result;
 import com.lemzki.tools.people.db.mapper.impl.GoogleResourceMapper;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.people.db.service.PersonService;
-import com.lemzki.tools.people.db.service.google.PeopleAPIService;
-import com.lemzki.tools.people.db.service.google.PeopleAPIBatchUpdater;
 import com.lemzki.tools.security.LoggedInUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,9 +37,6 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
     private static final Integer PAGE_SIZE = 2000;
 
     @Autowired
-    PeopleService peopleService;
-
-    @Autowired
     LoggedInUser loggedInUser;
 
     @Autowired
@@ -47,10 +45,14 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
     @Autowired
     PeopleAPIBatchUpdater peopleAPIBatchUpdater;
 
+    @Autowired
+    PeopleServiceRetriever peopleServiceFacade;
+
     @Value("${google.people.api.write.limit}")
     int limit;
 
     private List<Person> getList() {
+        PeopleService peopleService = peopleServiceFacade.get();
         List<Person> list = new ArrayList<>();
         try {
             list = peopleService.people().connections().list(ME).setPageSize(PAGE_SIZE)
@@ -99,14 +101,12 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
     }
 
 
-
     @Override
-    public String exportContactsToGoogle() {
+    public String exportContactsToGoogle() throws InterruptedException {
 
-        if(peopleAPIBatchUpdater.isUpdateInProgress()){
+        if (peopleAPIBatchUpdater.isUpdateInProgress()) {
             return peopleAPIBatchUpdater.getLogs();
         }
-
 
 
         //FOR TESTING CUT LIST To 35 and limit to 10
@@ -121,14 +121,10 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
 
         List<List<PersonDb>> groups = splitListByGoogleLimit(list);
 
-       // hand it off to updater and return
-        try {
-            peopleAPIBatchUpdater.update(groups);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // hand it off to updater and return
+
+        PeopleService peopleService = peopleServiceFacade.get();
+        peopleAPIBatchUpdater.update(peopleService, groups);
 
         int estimateDuration = list.size() / limit;
         return "Handed off to Updater Service for Asynchronous processing. Estimate Duration:" + estimateDuration + " mins.";

@@ -36,7 +36,7 @@ public class FamilyServiceImpl implements FamilyService {
             Optional<Family> optFamily = familyRepository.findByParent(family.getParent());
 
             if (optFamily.isPresent()) {
-                //record is alreadyin db just need to update it
+                //record is alreadyin db just need to execute it
                 Family presentFamily = optFamily.get();
                 presentFamily.getChildren().addAll(family.getChildren());
                 familyRepository.save(presentFamily);

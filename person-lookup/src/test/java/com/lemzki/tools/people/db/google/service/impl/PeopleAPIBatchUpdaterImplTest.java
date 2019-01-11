@@ -1,4 +1,4 @@
-package com.lemzki.tools.people.db.service.google.impl;
+package com.lemzki.tools.people.db.google.service.impl;
 
 import com.google.common.collect.Lists;
 import org.junit.Assert;

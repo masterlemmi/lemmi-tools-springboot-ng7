@@ -21,7 +21,7 @@ public class GoogleContactUpdater {
 
         contact.setGenders(Lists.newArrayList(new Gender().setValue(personDb.getGender().toString())));
 
-        //also update Gender placeholder under relations field
+        //also execute Gender placeholder under relations field
         contact.setRelations(updatedGenderPlaceholder(contact.getRelations(), personDb.getGender()));
     }
 

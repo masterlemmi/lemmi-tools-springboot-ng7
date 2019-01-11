@@ -1,4 +1,4 @@
-package com.lemzki.tools.security.exception;
+package com.lemzki.tools.exception;
 
 public class UnauthenticatedSessionException extends RuntimeException {
 

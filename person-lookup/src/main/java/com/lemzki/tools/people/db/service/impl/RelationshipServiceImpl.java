@@ -31,7 +31,7 @@ public class RelationshipServiceImpl implements RelationshipService {
             Optional<Relationship> relationshipOptional = relationshipRepository.findByMainAndOther(relationship.getMain(), relationship.getOther());
 
             if (relationshipOptional.isPresent()) {
-                //record is alreadyin db just need to update it
+                //record is alreadyin db just need to execute it
                 Relationship relationshipEntity = relationshipOptional.get();
                 relationshipEntity.getRelation().addAll(relationship.getRelation());
                 relationshipRepository.save(relationshipEntity);
