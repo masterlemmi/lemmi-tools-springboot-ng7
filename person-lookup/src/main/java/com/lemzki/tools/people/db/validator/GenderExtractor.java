@@ -38,11 +38,12 @@ public class GenderExtractor {
 
 
     private GenderE extractFromGenderList() {
-        Set<GenderE> set = this.genderList.stream()
+        throw new RuntimeException("Gender field not yet working.. fix this");
+        /*Set<GenderE> set = this.genderList.stream()
                 .map(Gender::getValue)
                 .map(GenderE::getSafeEnum)
                 .collect(toSet());
-        return extract(set);
+        return extract(set);*/
     }
 
     private GenderE extract(Set<GenderE> set) {
@@ -60,12 +61,12 @@ public class GenderExtractor {
         private List<Relation> relations;
 
         //check genders first because that would have been set manually somewhere
-        public Builder from(List<Gender> genders) {
-            this.genderList = CollectionUtils.isEmpty(genders) ? Lists.newArrayList() : genders;
-            return this;
-        }
+//        public Builder from(List<Gender> genders) {
+//            this.genderList = CollectionUtils.isEmpty(genders) ? Lists.newArrayList() : genders;
+//            return this;
+//        }
 
-        public Builder ifFailedFrom(List<Relation> relations) {
+        public Builder from(List<Relation> relations) {
             this.relations = CollectionUtils.isEmpty(relations) ? Lists.newArrayList() : relations;
             return this;
         }

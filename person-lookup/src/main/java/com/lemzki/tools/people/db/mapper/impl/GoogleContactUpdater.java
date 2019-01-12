@@ -14,7 +14,9 @@ public class GoogleContactUpdater {
 
     public static void updateContact(Person contact, PersonDb personDb) {
         contact.setNicknames(Lists.newArrayList(new Nickname().setValue(personDb.getNickname())));
-        contact.setNames(Lists.newArrayList(new Name().setDisplayName(personDb.getName())));
+        contact.setNames(Lists.newArrayList(new Name().setFamilyName(personDb.getLastName())
+                .setGivenName(personDb.getFirstName())
+                .setMiddleName(personDb.getAdditionalName())));
         contact.setBirthdays(Lists.newArrayList(new Birthday().setDate(toGoogleDate(personDb.getDateOfBirth()))));
 
         contact.setEvents(updatedEvents(contact.getEvents(),  personDb.getDateOfDeath()));

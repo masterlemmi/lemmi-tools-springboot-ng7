@@ -14,6 +14,7 @@ public interface PersonService {
 
     PersonDb save(PersonDb personDb);
 
+
     List<PersonDb> saveAll(Set<PersonDb> personDb);
 
     PersonDb edit(PersonDb personDb);
@@ -25,4 +26,6 @@ public interface PersonService {
     PersonDb retrieveOrSave(PersonDb personDb);
 
     List<PersonDb> findByNameOrNickName(String nickNameOrName);
+
+    List<PersonDb> saveAllByResourceName(Set<PersonDb> passed);
 }

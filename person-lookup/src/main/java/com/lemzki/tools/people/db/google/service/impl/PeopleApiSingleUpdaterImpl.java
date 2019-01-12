@@ -4,12 +4,14 @@ import com.google.api.services.people.v1.PeopleService;
 import com.google.api.services.people.v1.model.Person;
 import com.google.common.base.Stopwatch;
 import com.lemzki.tools.people.db.google.service.PeopleApiSingleUpdater;
+import com.lemzki.tools.people.db.service.PersonService;
 import com.lemzki.tools.result.Status;
 import com.lemzki.tools.people.db.mapper.impl.GoogleContactUpdater;
 import com.lemzki.tools.people.db.model.PersonDb;
 import com.lemzki.tools.result.AsyncResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +25,12 @@ public class PeopleApiSingleUpdaterImpl implements PeopleApiSingleUpdater {
     private final static String FIELDS = "names,relations,nicknames,birthdays,genders,events";
     private static final Logger logger = LogManager.getLogger(PeopleApiSingleUpdaterImpl.class);
 
+    @Autowired
+    PersonService personService;
+
     @Override
-    @Async
-    public Future<AsyncResult<Person>> update(PeopleService peopleService, PersonDb personDb) {
+    @Async("googleUpdaterTaskExecutor")
+    public CompletableFuture<AsyncResult<Person>> update(PeopleService peopleService, PersonDb personDb) {
 
         CompletableFuture<AsyncResult<Person>> completableFuture = new CompletableFuture<>();
         AsyncResult<Person> result = new AsyncResult<>();
@@ -46,15 +51,18 @@ public class PeopleApiSingleUpdaterImpl implements PeopleApiSingleUpdater {
 
             result.setStatus(Status.SUCCESS);
             result.setData(updatedPerson);
+            personDb.setSynched(true);
         } catch (Exception e) {
+            personDb.setSynched(false);
             result.setStatus(Status.FAIL);
             result.setError(e.getMessage());
             result.setData(null);
-            logger.error("Error occurred while updating contact", e);
+            logger.error("Error occurred while updating contact " +  personDb.getId() + ": " + personDb.getName(), e);
         }
 
         stopwatch.stop();
         result.setDuration(stopwatch.elapsed(TimeUnit.SECONDS));
+        personService.save(personDb); //saves sync status
 
         completableFuture.complete(result);
         return completableFuture;

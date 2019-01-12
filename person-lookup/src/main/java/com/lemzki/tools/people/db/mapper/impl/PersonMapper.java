@@ -16,7 +16,7 @@ public class PersonMapper {
         personDb.setId(dto.getId());
         personDb.setGender(dto.getGender());
         personDb.setNickname(dto.getNickname());
-        personDb.setName(dto.getName());
+       // personDb.setName(dto.getName());
         personDb.setDateOfBirth(dto.getDateOfBirth());
         return personDb;
     }

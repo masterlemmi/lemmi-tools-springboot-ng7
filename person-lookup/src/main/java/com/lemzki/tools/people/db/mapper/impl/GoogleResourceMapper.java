@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import static com.lemzki.tools.util.StreamUtils.sameAs;
@@ -24,7 +25,9 @@ public class GoogleResourceMapper {
         PersonDb personDb = new PersonDb();
         try {
             personDb.setResourceName(gPerson.getResourceName());
-            personDb.setName(determineNames(gPerson.getNames()));
+            personDb.setFirstName(determineNames(gPerson.getNames(), Name::getGivenName));
+            personDb.setAdditionalName(determineNames(gPerson.getNames(), Name::getGivenName));
+            personDb.setLastName(determineNames(gPerson.getNames(), Name::getFamilyName));
             personDb.setGender(determineGender(gPerson.getGenders(), gPerson.getRelations()));
             personDb.setDateOfBirth(determineDateOfBirth(gPerson.getBirthdays()));
             personDb.setNickname(determineNicknames(gPerson.getNicknames()));
@@ -40,10 +43,11 @@ public class GoogleResourceMapper {
     }
 
 
-    private static String determineNames(List<Name> names) {
+    private static String determineNames(List<Name> names, Function<Name, String> getName) {
         if(CollectionUtils.isEmpty(names)) return "Unknown";
         return names.stream()
-                .map(Name::getDisplayName)
+                .map(getName::apply)
+                .filter(Objects::nonNull)
                 .findFirst()
                 .orElse("Unknown");
     }
@@ -52,12 +56,12 @@ public class GoogleResourceMapper {
     private static GenderE determineGender(List<com.google.api.services.people.v1.model.Gender> genders,
                                            List<Relation> relations) {
 
-        if (CollectionUtils.isEmpty(genders) && CollectionUtils.isEmpty(relations)) {
+        if (CollectionUtils.isEmpty(relations)) {
             return GenderE.UNDETERMINED;
             //throw new GenderRequiredException();
         }
 
-        GenderExtractor extractor = new GenderExtractor.Builder().from(genders).ifFailedFrom(relations).build();
+        GenderExtractor extractor = new GenderExtractor.Builder().from(relations).build();
 
         return extractor.extractGender();
     }
@@ -66,6 +70,7 @@ public class GoogleResourceMapper {
         if(CollectionUtils.isEmpty(photos)) return RANDOM_PHOTO;
         return photos.stream()
                 .map(Photo::getUrl)
+                .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(RANDOM_PHOTO);
     }
@@ -74,6 +79,7 @@ public class GoogleResourceMapper {
         if(CollectionUtils.isEmpty(nicknames)) return "";
         return nicknames.stream()
                 .map(Nickname::getValue)
+                .filter(Objects::nonNull)
                 .findFirst()
                 .orElse("");
     }
@@ -82,6 +88,7 @@ public class GoogleResourceMapper {
         if(CollectionUtils.isEmpty(events)) return null;
         return events.stream()
                 .filter(sameAs(Event::getType, "Death"))
+                .filter(Objects::nonNull)
                 .findFirst()
                 .map(Event::getDate)
                 .map(toLocalDate)
@@ -92,6 +99,7 @@ public class GoogleResourceMapper {
     private static LocalDate determineDateOfBirth(List<Birthday> birthdays) {
         if(CollectionUtils.isEmpty(birthdays)) return null;
         return birthdays.stream()
+                .filter(Objects::nonNull)
                 .findFirst()
                 .map(Birthday::getDate)
                 .map(toLocalDate)

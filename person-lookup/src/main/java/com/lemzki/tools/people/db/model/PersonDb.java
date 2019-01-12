@@ -14,7 +14,9 @@ import java.time.LocalDate;
 public class PersonDb {
     @Id @GeneratedValue
     private Long id;
-    private @NonNull String name;
+    private String additionalName;
+    private String firstName;
+    private String lastName;
     private @NonNull Long addedBy;
     private String nickname;
     private String photoUrl;
@@ -28,4 +30,11 @@ public class PersonDb {
 
     @ManyToOne
     private User user;
+
+    private boolean synched;
+
+    public String getName(){
+        return firstName + " " + additionalName  + " " + lastName;
+    }
+
 }

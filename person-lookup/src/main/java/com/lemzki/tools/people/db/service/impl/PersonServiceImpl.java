@@ -40,7 +40,6 @@ public class PersonServiceImpl implements PersonService {
         return this.save(personDbResource);
     }
 
-
     @Override
     public void delete(long id) {
         personRepository.deleteById(id);
@@ -71,5 +70,21 @@ public class PersonServiceImpl implements PersonService {
     public PersonDb retrieveOrSave(PersonDb personDb) {
         return personDb.getId() == null ?
                 this.save(personDb) : this.find(personDb.getId()).orElse(this.save(personDb));
+    }
+
+    @Override
+    public List<PersonDb> saveAllByResourceName(Set<PersonDb> passed) {
+        passed.stream()
+                .forEach(personDb -> {
+                    Optional<PersonDb> optionalPersonDb = personRepository.findByResourceName(personDb.getResourceName());
+
+                    if(optionalPersonDb.isPresent()){
+                       personDb.setId(optionalPersonDb.get().getId());
+                    }
+
+                    personRepository.save(personDb);
+
+                });
+        return null;
     }
 }

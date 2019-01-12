@@ -13,7 +13,7 @@ public class PeopleApiControllerImpl implements PeopleApiController {
 
     @Override
     public String exportContactsToGoogle() throws InterruptedException {
-        return peopleAPIService.exportContactsToGoogle();
+        return peopleAPIService.exportAllContactsToGoogle();
     }
 
     @Override

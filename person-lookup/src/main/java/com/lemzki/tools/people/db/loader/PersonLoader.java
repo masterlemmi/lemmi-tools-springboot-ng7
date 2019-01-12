@@ -87,7 +87,7 @@ public class PersonLoader {
         try {
             personDb = new PersonDb();
             personDb.setAddedBy(LemID.TEMP);
-            personDb.setName(record.get("NAME"));
+            //personDb.setName(record.get("NAME"));
             int index = random.nextInt(resolutions.length);
             personDb.setPhotoUrl("https://source.unsplash.com/random/" + index + "x" + index);
             personDb.setNickname(record.get("NICKNAME"));

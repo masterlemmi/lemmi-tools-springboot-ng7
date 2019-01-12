@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.partitioningBy;
@@ -35,6 +36,7 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
             "nicknames,birthdays,coverPhotos,emailAddresses,genders,events";
 
     private static final Integer PAGE_SIZE = 2000;
+
 
     @Autowired
     LoggedInUser loggedInUser;
@@ -80,11 +82,12 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
                 .peek(person -> {
                             person.setAddedBy(currentUser);
                             person.setUser(loggedInUser.get());
+
                         }
                 )
                 .collect(toSet());
 
-        personService.saveAll(passed);
+        personService.saveAllByResourceName(passed);
 
         String successMessage = "Imported " + passed.size() + "/" + people.size() + " contacts";
         String failedMessage = "Failed to import the ff: " + listFailures(mappedResource.get(false));
@@ -102,16 +105,31 @@ public class PeopleAPIServiceImpl implements PeopleAPIService {
 
 
     @Override
-    public String exportContactsToGoogle() throws InterruptedException {
+    public String exportOneContactToGoogle(PersonDb personDb) throws InterruptedException, ExecutionException {
+
+        if (peopleAPIBatchUpdater.isUpdateInProgress()) {
+            return peopleAPIBatchUpdater.getLogs();
+        }
+
+        PeopleService peopleService = peopleServiceFacade.get();
+        return peopleAPIBatchUpdater.update(peopleService, personDb);
+    }
+
+
+
+        @Override
+    public String exportAllContactsToGoogle() throws InterruptedException {
 
         if (peopleAPIBatchUpdater.isUpdateInProgress()) {
             return peopleAPIBatchUpdater.getLogs();
         }
 
 
+
+        List<PersonDb> list = personService.findAll();
         //FOR TESTING CUT LIST To 35 and limit to 10
-        List<PersonDb> list = personService.findAll().subList(0, 35);
-        this.limit = 10;
+        //.subList(0, 35);
+        //this.limit = 10;
 
 
         if (CollectionUtils.isEmpty(list)) {
