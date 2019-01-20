@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<PersonDb, Long> {
 
     //@Query("select p from PersonDb p where p.name like %:nickNameOrName% OR p.nickname like %:nickNameOrName%")
-    List<PersonDb> findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(String name, String nicknamea);
+    List<PersonDb> findByFirstNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(String firstName, String nickname);
 
     Optional<PersonDb> findByResourceName(String resourceName);
 }

@@ -31,44 +31,6 @@ public class PeopleAPIBatchUpdaterImplTest {
 
     }
 
-    @Test
-    public void testReadingFromListofCompletablefutures() throws InterruptedException {
-        System.out.println("START");
-        CompletableFuture<String> a = fromThread("a");
-        CompletableFuture<String> b = fromThread("b");
-        CompletableFuture<String> c = fromThread("c");
-        CompletableFuture<String> d = fromThread("d");
-
-        System.out.println("Returned after 4 futures");
-        List<CompletableFuture<String>> results = Lists.newArrayList(a, b, c, d);
-
-        List<String> objectList = results.stream()
-                .filter(CompletableFuture.class::isInstance)
-                .map(CompletableFuture.class::cast)
-                .map(CompletableFuture::join)
-                .map(String.class::cast)
-                .collect(toList());
-
-        System.out.println("Collected results in list:");
-
-        for (Object object : objectList) {
-            System.out.println(object);
-        }
-    }
-
-    private CompletableFuture<String> fromThread(String letter) {
-        CompletableFuture<String> completableFuture
-                = new CompletableFuture<>();
-
-        Executors.newCachedThreadPool().submit(() -> {
-            System.out.println("creating future " + letter);
-            TimeUnit.SECONDS.sleep(letter.equals("d") ? 15 : 5);
-            completableFuture.complete(letter);
-            return null;
-        });
-
-        return completableFuture;
-    }
 
 
 

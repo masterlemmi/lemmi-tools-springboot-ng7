@@ -62,7 +62,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonDb> findByNameOrNickName(String nickNameOrName) {
-        return personRepository.findByNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(nickNameOrName, nickNameOrName);
+        return personRepository.findByFirstNameContainingIgnoreCaseOrNicknameContainingIgnoreCase(nickNameOrName, nickNameOrName);
     }
 
     //retrieveOrSave if no id. retrieve if there is. if no result. retrieveOrSave again

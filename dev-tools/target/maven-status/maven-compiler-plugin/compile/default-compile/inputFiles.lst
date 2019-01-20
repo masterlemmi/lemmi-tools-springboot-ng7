@@ -1,0 +1,14 @@
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/impl/IDEPluginsResourceReader.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/impl/StringResourceReader.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/model/IDEPlugin.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/ResourceReader.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/enums/Resource.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/impl/IDEShorcutResourceReader.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/mapper/CSVResourceMapper.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/initializer/InitializerService.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/initializer/impl/InitializerServiceImpl.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/model/IDEShortcut.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/TestStart.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/InMemoryResourceReader.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/impl/InMemoryResourceReaderImpl.java
+/home/lemzki/workspace2/lemmi-tools-springboot/dev-tools/src/main/java/com/lemzki/tools/dev/resource/reader/impl/CSVResourceReader.java
