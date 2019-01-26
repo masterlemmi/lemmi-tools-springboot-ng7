@@ -41,7 +41,12 @@ public class LemzkiToolsApplication {
             logger.debug("STARTED INIT RUMMER DBEUG");
             logger.error("STARTED INIT RUMMER ERROR");
             logger.warn("STARTED INIT RUMMER warn");
-            //personLoader.loadPersons();
+            personLoader.loadPersons();
+
+//            Message m = new Message();
+//            m.setNumber("Number tchichi");
+//            m.setMessage("ABA NAKABAKABASA NA KA APALA PO");
+//            repository.save(m);
         };
     }
 
