@@ -10,7 +10,8 @@
 
      <modules>
         <module>person-lookup</module>
-                <module>dev-tools</module>
+        <module>dev-tools</module>
+         <module>interests</module>
         <module>application</module>
         <module>common</module>
     </modules>

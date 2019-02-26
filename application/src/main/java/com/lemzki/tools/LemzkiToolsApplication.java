@@ -28,32 +28,21 @@ import java.util.concurrent.ExecutionException;
 @EnableAsync
 public class LemzkiToolsApplication {
 
-    private static final Logger logger = LogManager.getLogger(LemzkiToolsApplication.class);
+    private static final Logger LOGGER = LogManager.getLogger(LemzkiToolsApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(LemzkiToolsApplication.class, args);
     }
 
-    @Bean
-    ApplicationRunner init(PersonLoader personLoader) {
-        return args -> {
-            logger.info("STARTED INIT RUNNER");
-            logger.debug("STARTED INIT RUMMER DBEUG");
-            logger.error("STARTED INIT RUMMER ERROR");
-            logger.warn("STARTED INIT RUMMER warn");
-            personLoader.loadPersons();
-
-//            Message m = new Message();
-//            m.setNumber("Number tchichi");
-//            m.setMessage("ABA NAKABAKABASA NA KA APALA PO");
-//            repository.save(m);
-        };
-    }
-
-
     @Autowired
     LoggedInUser loggedInUser;
 
+    @Bean
+    ApplicationRunner init(PersonLoader personLoader) {
+        return args -> {
+            personLoader.loadPersons();
+        };
+    }
 
     @GetMapping("/user")
     public ResponseEntity<User> user() {
@@ -65,37 +54,5 @@ public class LemzkiToolsApplication {
             return ResponseEntity.ok(user);
         }
     }
-
-    @Autowired
-    PeopleAPIService apiService;
-
-    @GetMapping("/testImport")
-    public String testImport() {
-        return apiService.importContactPersonsFromGoogle();
-    }
-
-    @GetMapping("/testExportAll")
-    public String testEport() throws InterruptedException {
-        return apiService.exportAllContactsToGoogle();
-    }
-
-    @Autowired
-    PersonService personService;
-    @GetMapping("/testExportOne")
-    public String testEportOne() throws InterruptedException, ExecutionException {
-        int id = 23;
-        PersonDb personDb = personService.find(23).get();
-        return apiService.exportOneContactToGoogle(personDb);
-    }
-
-    @Autowired
-    PeopleAPIBatchUpdaterImpl updater;
-
-    @GetMapping("/testLog")
-    public String readLog() {
-        return updater.getLogs();
-    }
-
-
 }
 

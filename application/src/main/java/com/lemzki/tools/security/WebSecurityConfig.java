@@ -1,7 +1,6 @@
 package com.lemzki.tools.security;
 
 import com.lemzki.tools.security.model.User;
-import com.lemzki.tools.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
@@ -51,24 +50,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/")
-                .permitAll()
+                    .authorizeRequests()
+                        .antMatchers("/")
+                        .permitAll()
+
                 .and()
-                .authorizeRequests()
-                .antMatchers("/h2/**")
-                .permitAll()
+                    .authorizeRequests()
+                        .antMatchers("/h2/**")
+                        .permitAll()
+
                 .and()
-                .authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/insert**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                    .authorizeRequests()
+                        .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/insert**")
+                        .permitAll()
+                    .anyRequest()
+                        .authenticated()
+
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll()
-                .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+                    .logout()
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+
+                .and()
+                    .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
 
 

@@ -24,3 +24,8 @@ CLIENT
 
 LISTENer to authentication success
 SAVE/UPDATE USER
+
+
+COMMANDS:
+RUN application mvn spring-boot:run -pl application
+BUILD aLL mvn clean install
