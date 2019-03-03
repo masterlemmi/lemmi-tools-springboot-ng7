@@ -14,6 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class Role {
 
+    public static final Role USER = new Role("USER") ;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -21,4 +22,8 @@ public class Role {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
+    public Role(String name){
+        this.name = name;
+    }
 }

@@ -9,17 +9,15 @@ import java.util.List;
 
 public interface PhraseController {
 
-    String REST_BASE = "/api/ide";
-
-    @GetMapping(REST_BASE + "/plugins")
+    @GetMapping("/phrases")
     List<Phrase> getAllWords();
 
-    @PostMapping(REST_BASE + "/plugins")
+    @PostMapping("/phrases")
     ResponseEntity<Phrase> addWord(@RequestBody Phrase phrase);
 
-    @DeleteMapping(REST_BASE + "/plugins/{id}")
+    @DeleteMapping("/phrases/{id}")
     void deleteWord(@PathVariable("id") long id);
 
-    @PutMapping(REST_BASE + "/plugins/{id}")
+    @PutMapping("/phrases/{id}")
     void updateWord(@PathVariable("id") long id, @RequestBody Phrase phrase);
 }

@@ -17,3 +17,5 @@ BUILD aLL mvn clean install
 
 Integrate with Angular Project:
 cd to angula project mvn
+
+LT_SECRET configured in intellij setting

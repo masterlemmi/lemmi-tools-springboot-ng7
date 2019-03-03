@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Component;
 
+/**
+ * Saves the Authenticated SSO User to the DB
+ */
 @Component
 public class AuthenticationSuccessListener implements ApplicationListener<AuthenticationSuccessEvent> {
 
@@ -29,13 +34,24 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
 
         if (auth instanceof OAuth2Authentication) {
 
-            OAuth2Authentication oauth2 = (OAuth2Authentication) auth;
+//            OAuth2Authentication oauth2 = (OAuth2Authentication) auth;
+//
+//            User user = UserMapper.mapFrom(oauth2);
+//
+//            userService.findByGoogleId(user.getGoogleId())
+//                    .ifPresent(optUser ->
+//                            user.setId(optUser.getId()));
 
-            User user = UserMapper.mapFrom(oauth2);
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//            if (authentication == null){
+//                return null;
+//            }
+//            String token = ((OAuth2AuthenticationDetails) authentication.getDetails()).getTokenValue();
 
-            userService.findByGoogleId(user.getGoogleId()).ifPresent(optUser ->user.setId(optUser.getId()));
-
-            userService.save(user);
+//
+//            userService.save(user);
+            System.out.println("HERE");
 
 
         } else {

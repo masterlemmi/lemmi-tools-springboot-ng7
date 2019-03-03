@@ -22,6 +22,12 @@
 
     <dependencies>
 
+        <!--<dependency>-->
+            <!--<groupId>org.postgresql</groupId>-->
+            <!--<artifactId>postgresql</artifactId>-->
+            <!--<version>42.1.4</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -42,6 +48,13 @@
             <artifactId>person-lookup</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.lemzki.tools</groupId>
+            <artifactId>interests</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.lemzki.tools</groupId>

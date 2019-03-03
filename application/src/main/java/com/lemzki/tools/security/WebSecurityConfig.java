@@ -2,6 +2,7 @@ package com.lemzki.tools.security;
 
 import com.lemzki.tools.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -45,34 +46,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PrincipalExtractor principalExtractor;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**")
-                    .authorizeRequests()
-                        .antMatchers("/")
-                        .permitAll()
-
-                .and()
-                    .authorizeRequests()
-                        .antMatchers("/h2/**")
-                        .permitAll()
-
-                .and()
-                    .authorizeRequests()
-                        .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/insert**")
-                        .permitAll()
-                    .anyRequest()
-                        .authenticated()
-
-                .and()
-                    .logout()
-                        .logoutSuccessUrl("/")
-                        .permitAll()
-
-                .and()
-                    .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+                .authorizeRequests()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/h2/**").permitAll()
+                    .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/insert**").permitAll()
+                    .antMatchers("/ide/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                    .and()
+               .logout()
+                    .logoutSuccessUrl("/").permitAll()
+                    .and()
+               .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
 
 
@@ -89,12 +81,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
+
     private Filter ssoFilter() {
         OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/google");
         OAuth2RestTemplate googleTemplate = new OAuth2RestTemplate(google(), oauth2ClientContext);
         googleFilter.setRestTemplate(googleTemplate);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(googleResource().getUserInfoUri(), google().getClientId());
         tokenServices.setRestTemplate(googleTemplate);
+        tokenServices.setPrincipalExtractor(principalExtractor);
         googleFilter.setTokenServices(tokenServices);
         googleFilter.setApplicationEventPublisher(applicationEventPublisher);
         return googleFilter;
