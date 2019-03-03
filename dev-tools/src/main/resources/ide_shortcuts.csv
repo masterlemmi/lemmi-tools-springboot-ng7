@@ -1,4 +1,4 @@
-Eclipse,IntelliJ,VSCode,Description
+eclipse,intellij,vscode,description
 Alt+Shift+J,/** or Alt+Shift+S,?,create documentation
 F4,ctrl+h,?,show the type hierarchy
 ctrl+alt+g,ctrl+alt+F7,?,find usages

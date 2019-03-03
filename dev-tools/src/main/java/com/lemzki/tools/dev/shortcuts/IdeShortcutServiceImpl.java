@@ -15,13 +15,19 @@ import static java.util.stream.Collectors.toList;
 @Service
 class IdeShortcutServiceImpl implements IdeShortcutService {
 
-    private static final String FILE_NAME = "plugins.csv";
+    private static final String FILE_NAME = "ide_shortcuts.csv";
 
     @Autowired
     CSVResourceReader resourceReader;
 
     private Function<CSVRecord, IdeShortcut> ideshortcutMapper = (record) -> {
-        return new IdeShortcut();
+        IdeShortcut shortcut = new IdeShortcut();
+
+        shortcut.setDescription(record.get("description"));
+        shortcut.setEclipse(record.get("eclipse"));
+        shortcut.setIntelliJ(record.get("intellij"));
+        shortcut.setVsCode(record.get("vscode"));
+        return shortcut;
     };
 
     @Override

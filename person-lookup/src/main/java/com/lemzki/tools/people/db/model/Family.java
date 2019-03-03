@@ -10,7 +10,7 @@ import java.util.Set;
 
 //maps a parent to its children
 @Entity
-        @Table(name="PARENT")
+@Table(name="PARENT")
 @Getter @Setter
 @NoArgsConstructor
 @ToString @EqualsAndHashCode

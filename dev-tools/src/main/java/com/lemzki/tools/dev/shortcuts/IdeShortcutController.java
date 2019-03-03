@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IdeShortcutController {
 
-    static final String REST_BASE = "/dev-tools/ide";
+    static final String REST_BASE = "/api/dev-tools/ide";
 
     @GetMapping(REST_BASE + "/shortcuts")
     List<IdeShortcut> getAllShortcuts();

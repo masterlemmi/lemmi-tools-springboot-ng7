@@ -2,6 +2,7 @@ package com.lemzki.tools.dev.plugins;
 
 
 
+import com.lemzki.tools.dev.Ide;
 import com.lemzki.tools.reader.CSVResourceReader;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,17 @@ import static java.util.stream.Collectors.toList;
 @Service
 class IdePluginServiceImpl implements IdePluginService {
 
-    private static final String FILE_NAME = "plugins.csv";
+    private static final String FILE_NAME = "ide_plugins.csv";
 
     @Autowired
     CSVResourceReader resourceReader;
 
     private Function<CSVRecord, IdePlugin> idePluginMapper = (record) -> {
-        return new IdePlugin();
+        IdePlugin plugin =  new IdePlugin();
+        plugin.setLink(record.get("link"));
+        plugin.setIde(Ide.valueOf(record.get("ide")));
+        plugin.setName(record.get("name"));
+        return plugin;
     };
 
     @Override

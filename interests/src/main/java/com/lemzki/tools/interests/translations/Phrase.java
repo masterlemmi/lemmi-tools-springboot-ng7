@@ -1,28 +1,29 @@
-package com.lemzki.tools.dev.plugins;
+package com.lemzki.tools.interests.translations;
 
-import com.lemzki.tools.dev.Ide;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="PLUGIN")
+@Table(name="PHRASE")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdePlugin {
+public class Phrase {
     @Id
     @GeneratedValue
     private Long id;
-    private Ide ide;
-    private String name;
-    private String link;
-    private String image;
-    private String description;
+    @NotNull
+    private String english;
+    private String cebuano;
+    private String ilocano;
+    private String japanese;
+    private String french;
 }
