@@ -2,6 +2,7 @@ package com.lemzki.tools.security;
 
 import com.lemzki.tools.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
@@ -49,6 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     PrincipalExtractor principalExtractor;
 
+    @Autowired
+    private AuthoritiesExtractor authoritiesExtractor;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -90,6 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(googleResource().getUserInfoUri(), google().getClientId());
         tokenServices.setRestTemplate(googleTemplate);
         tokenServices.setPrincipalExtractor(principalExtractor);
+        tokenServices.setAuthoritiesExtractor(authoritiesExtractor);
         googleFilter.setTokenServices(tokenServices);
         googleFilter.setApplicationEventPublisher(applicationEventPublisher);
         return googleFilter;

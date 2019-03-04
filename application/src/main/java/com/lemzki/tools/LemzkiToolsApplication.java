@@ -1,11 +1,7 @@
 package com.lemzki.tools;
 
 
-import com.lemzki.tools.people.db.google.service.impl.PeopleAPIBatchUpdaterImpl;
 import com.lemzki.tools.people.db.loader.PersonLoader;
-import com.lemzki.tools.people.db.google.service.PeopleAPIService;
-import com.lemzki.tools.people.db.model.PersonDb;
-import com.lemzki.tools.people.db.service.PersonService;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.model.User;
 import org.apache.logging.log4j.LogManager;
@@ -21,11 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ExecutionException;
-
-@SpringBootApplication(scanBasePackages = "com.lemzki.tools")
-@RestController
-@EnableAsync
+@SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync
 public class LemzkiToolsApplication {
 
     private static final Logger LOGGER = LogManager.getLogger(LemzkiToolsApplication.class);
@@ -34,18 +26,15 @@ public class LemzkiToolsApplication {
         SpringApplication.run(LemzkiToolsApplication.class, args);
     }
 
-    @Autowired
-    LoggedInUser loggedInUser;
+    @Autowired LoggedInUser loggedInUser;
 
-    @Bean
-    ApplicationRunner init(PersonLoader personLoader) {
+    @Bean ApplicationRunner init(PersonLoader personLoader) {
         return args -> {
             personLoader.loadPersons();
         };
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<User> user() {
+    @GetMapping("/user") public ResponseEntity<User> user() {
         User user = loggedInUser.get();
 
         if (user == null) {
