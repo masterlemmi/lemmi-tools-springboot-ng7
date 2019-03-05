@@ -1,8 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.User;
-import com.lemzki.tools.security.UserRepository;
-import com.lemzki.tools.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

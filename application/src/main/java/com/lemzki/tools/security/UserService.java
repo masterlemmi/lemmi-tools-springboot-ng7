@@ -1,7 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.User;
-
 import java.util.Optional;
 
 public interface UserService {

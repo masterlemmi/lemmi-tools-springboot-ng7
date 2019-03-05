@@ -1,7 +1,7 @@
 package com.lemzki.tools.people.db.model;
 
 import com.lemzki.tools.people.db.enums.GenderE;
-import com.lemzki.tools.security.model.User;
+import com.lemzki.tools.security.User;
 import lombok.*;
 
 import javax.persistence.*;

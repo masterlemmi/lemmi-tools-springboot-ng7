@@ -1,7 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.Role;
-import com.lemzki.tools.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

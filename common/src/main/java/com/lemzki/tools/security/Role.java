@@ -1,4 +1,4 @@
-package com.lemzki.tools.security.model;
+package com.lemzki.tools.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
@@ -13,23 +13,30 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode(exclude = "users")
+@ToString(exclude = "users")
+@EqualsAndHashCode(exclude = {"users", "id"})
 public class Role {
 
-    public static final Role USER = new Role(1L,"USER") ;
-    public static final Role ADMIN = new Role(2L,"ADMIN") ;
-    public static final Set<Role> DEFAULT_ROLES = Sets.newHashSet(USER);
+    public static final Role USER = new Role("USER") ;
+    public static final Role ADMIN = new Role("ADMIN") ;
+
+
+    private Long id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(unique = true)
     private String name;
     public Role(Long id, String name){
         this.id = id;
         this.name = name;
     }
 
+    public Role(String name){
+      this.name = name;
+    }
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
+
 }

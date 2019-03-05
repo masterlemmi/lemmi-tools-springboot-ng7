@@ -1,7 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.Role;
-import com.lemzki.tools.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.stereotype.Component;
@@ -21,6 +19,7 @@ import java.util.Optional;
             return optionalUser.get();
         } else {
             User user = UserMapper.mapFrom(details);
+            user.addRole(Role.USER);
             return userService.save(user);
         }
     }

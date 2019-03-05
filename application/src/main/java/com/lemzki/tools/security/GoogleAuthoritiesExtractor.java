@@ -1,7 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.Role;
-import com.lemzki.tools.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.security.core.GrantedAuthority;

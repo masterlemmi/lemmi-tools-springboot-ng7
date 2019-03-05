@@ -1,6 +1,5 @@
 package com.lemzki.tools.security;
 
-import com.lemzki.tools.security.model.User;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
