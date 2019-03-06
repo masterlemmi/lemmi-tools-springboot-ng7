@@ -13,13 +13,13 @@ import java.io.*;
 import java.util.List;
 
 @Service
-public class CSVResourceReader implements ResourceReader<CsvData> {
+public class CSVResourceReader<T> implements ResourceReader<CsvData> {
 
     private static final Logger logger = LogManager.getLogger(CSVResourceReader.class);
 
 
     @Override
-    public CsvData read(String filename) {
+    public CsvData<T> read(String filename) {
 
         try {
 
@@ -32,8 +32,7 @@ public class CSVResourceReader implements ResourceReader<CsvData> {
             String[] headers =format.getHeader();
             List<CSVRecord> records = format.parse(in).getRecords();
 
-            return new CsvData(headers, records);
-
+            return new CsvData<>(headers, records);
 
         } catch (FileNotFoundException e) {
             logger.error("File was not found: " + filename, e);

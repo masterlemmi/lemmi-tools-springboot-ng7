@@ -18,9 +18,9 @@ import java.util.stream.DoubleStream;
 public class CsvData<T> {
     private String[] headers;
     private List<CSVRecord> records;
-    private Function<CSVRecord, T> mapper;
 
-    public List<T> mapResults(Function<CsvData, List<T>> mapper) {
+
+    public List<T> mapResults(Function<CsvData<T>, List<T>> mapper) {
        return mapper.apply(this);
     }
 }

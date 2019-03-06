@@ -3,6 +3,7 @@ package com.lemzki.tools.dev.shortcuts;
 
 
 import com.lemzki.tools.reader.CSVResourceReader;
+import com.lemzki.tools.reader.CsvData;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +19,17 @@ class IdeShortcutServiceImpl implements IdeShortcutService {
     private static final String FILE_NAME = "ide_shortcuts.csv";
 
     @Autowired
-    CSVResourceReader resourceReader;
+    CSVResourceReader<IdeShortcut> resourceReader;
 
-    private Function<CSVRecord, IdeShortcut> ideshortcutMapper = (record) -> {
+    private Function<CsvData<IdeShortcut>, List<IdeShortcut>> ideshortcutMapper = (record) -> {
         IdeShortcut shortcut = new IdeShortcut();
 
-        shortcut.setDescription(record.get("description"));
-        shortcut.setEclipse(record.get("eclipse"));
-        shortcut.setIntelliJ(record.get("intellij"));
-        shortcut.setVsCode(record.get("vscode"));
-        return shortcut;
+        return null;
     };
 
     @Override
     public List<IdeShortcut> getAllShortcuts() {
-        return resourceReader.read(FILE_NAME).stream()
-                .map(ideshortcutMapper)
-                .collect(toList());
+        return resourceReader.read(FILE_NAME)
+                .mapResults(ideshortcutMapper);
     }
 }

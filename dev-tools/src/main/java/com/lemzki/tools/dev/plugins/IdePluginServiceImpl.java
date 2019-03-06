@@ -19,7 +19,7 @@ class IdePluginServiceImpl implements IdePluginService {
     private static final String FILE_NAME = "ide_plugins.csv";
 
     @Autowired
-    CSVResourceReader resourceReader;
+    CSVResourceReader<IdePlugin> resourceReader;
 
     private Function<CSVRecord, IdePlugin> idePluginMapper = (record) -> {
         IdePlugin plugin =  new IdePlugin();
@@ -31,8 +31,7 @@ class IdePluginServiceImpl implements IdePluginService {
 
     @Override
     public List<IdePlugin> getAllPlugins() {
-        return resourceReader.read(FILE_NAME).stream()
-                .map(idePluginMapper)
-                .collect(toList());
+        return null;
+
     }
 }

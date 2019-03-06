@@ -59,9 +59,8 @@ class PhraseServiceImpl implements PhraseService {
 
 
     public void importWords(List<Phrase> phrases) {
-         resourceReader.read(FILE_NAME).stream()
-                .map(wordMapper)
-                .collect(toList());
+
+
 
     }
 }
