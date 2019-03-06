@@ -1,0 +1,10 @@
+
+spring:
+  profiles:
+    active=h2:
+    default: h2
+
+server:
+  error:
+    whitelabel:
+      enabled: true  # Whether to enable the default error page displayed in browsers in case of a server error.
