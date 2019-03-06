@@ -1,6 +1,8 @@
 package com.lemzki.tools.security;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Entity @Table(name = "user") @Getter @Setter @NoArgsConstructor @ToString
+@Entity @Table(name = "APP_USERS") @Getter @Setter @NoArgsConstructor @ToString
 @EqualsAndHashCode (exclude = "roles")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
@@ -26,6 +28,7 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role) {
@@ -57,6 +60,7 @@ public class User {
         return this;
     }
 
+    @JsonProperty("roles")
     public String[] getRolesAsStringArray() {
         return this.roles.stream()
             .map(Role::getName)

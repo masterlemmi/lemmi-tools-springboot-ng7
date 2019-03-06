@@ -1,17 +1,21 @@
 package com.lemzki.tools.exception;
 
 import java.util.Date;
+import java.util.Map;
 
 public class ExceptionResponse {
 	private Date timestamp;
 	private String message;
-	private String details;
+	private Map<String, String> details;
 
-	public ExceptionResponse(Date timestamp, String message, String details) {
+	public ExceptionResponse(Date timestamp, String message, Map<String, String> details) {
 		super();
 		this.timestamp = timestamp;
 		this.message = message;
 		this.details = details;
+	}
+
+	public ExceptionResponse(Date timestamp, String message, Object description) {
 	}
 
 	public Date getTimestamp() {
@@ -22,7 +26,7 @@ public class ExceptionResponse {
 		return message;
 	}
 
-	public String getDetails() {
+	public Map<String, String> getDetails() {
 		return details;
 	}
 

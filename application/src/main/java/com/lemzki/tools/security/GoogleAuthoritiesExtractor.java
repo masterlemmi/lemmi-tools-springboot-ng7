@@ -28,7 +28,7 @@ public class GoogleAuthoritiesExtractor implements AuthoritiesExtractor {
 
     Set<Role> roleSet = roleService.findByUsers(user.get());
     String[] roles = roleSet.stream()
-        .map(Role::getName)
+        .map(role -> "ROLE_"+ role.getName())
         .toArray(String[]::new);
 
     return AuthorityUtils.createAuthorityList(roles);

@@ -1,6 +1,7 @@
 package com.lemzki.tools.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -52,6 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthoritiesExtractor authoritiesExtractor;
 
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -60,29 +64,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/h2/**").permitAll()
-                    .antMatchers("/", "/login**", "/webjars/**", "/error**", "/g_signin**", "/insert**").permitAll()
+                    .antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll()
                     .antMatchers("/ide/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                .logout()
-                    .logoutSuccessUrl("/").permitAll()
+                    .logoutUrl("/lemmeout")
+                    .logoutSuccessUrl("/logout_success").permitAll()
+                    .deleteCookies("JSESSIONID")
                     .and()
                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
-
-
-        //allow h2 console
-        //.and()
-        //     .csrf()
-        //        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-
-
-
-        //allow h2 console
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-    }
+        if("h2".equalsIgnoreCase(activeProfile)){
+            http.csrf().disable();
+            http.headers().frameOptions().disable();
+        }
+     }
 
 
 
@@ -119,14 +116,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return registration;
     }
 
-
-    //allow h2 console
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                //registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:9000");
                 registry.addMapping("/**");
             }
         };

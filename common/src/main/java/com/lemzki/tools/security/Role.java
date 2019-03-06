@@ -14,22 +14,15 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = "users")
-@EqualsAndHashCode(exclude = {"users", "id"})
+@EqualsAndHashCode(exclude = {"users"})
 public class Role {
 
     public static final Role USER = new Role("USER") ;
     public static final Role ADMIN = new Role("ADMIN") ;
 
-
-    private Long id;
-
     @Id
     @Column(unique = true)
     private String name;
-    public Role(Long id, String name){
-        this.id = id;
-        this.name = name;
-    }
 
     public Role(String name){
       this.name = name;
