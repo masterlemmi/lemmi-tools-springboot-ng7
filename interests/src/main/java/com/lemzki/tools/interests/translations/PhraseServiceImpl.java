@@ -3,6 +3,7 @@ package com.lemzki.tools.interests.translations;
 
 import com.lemzki.tools.exception.ResourceNotFoundException;
 import com.lemzki.tools.reader.CSVResourceReader;
+import com.lemzki.tools.reader.CsvData;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,10 @@ import org.springframework.util.Assert;
 import java.util.List;
 import java.util.function.Function;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 class PhraseServiceImpl implements PhraseService {
 
-    private static final String FILE_NAME = "plugins.csv";
+
 
     @Autowired
     CSVResourceReader resourceReader;
@@ -24,8 +23,11 @@ class PhraseServiceImpl implements PhraseService {
     @Autowired
     PhraseRepository repository;
 
-    private Function<CSVRecord, Phrase> wordMapper = (record) -> {
-        return new Phrase();
+    private Function<CsvData, List<?>> wordMapper = (csvData) -> {
+        String[] headers = csvData.getHeaders();
+        List<CSVRecord> records = csvData.getRecords();
+
+        return null;
     };
 
     @Override
@@ -57,10 +59,10 @@ class PhraseServiceImpl implements PhraseService {
         repository.save(phrase);
     }
 
-
-    public void importWords(List<Phrase> phrases) {
-
-
-
+    @Override public List<Phrase> seedDatabase(String filename) {
+         return resourceReader.read(filename)
+            .mapResults(wordMapper);
     }
+
+
 }

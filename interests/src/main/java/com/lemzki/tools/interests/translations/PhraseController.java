@@ -20,4 +20,7 @@ public interface PhraseController {
 
     @PutMapping("/phrases/{id}")
     void updateWord(@PathVariable("id") long id, @RequestBody Phrase phrase);
+
+    @GetMapping("/phrases/seed")
+    void seedDatabase(@RequestParam("filename") String filename);
 }

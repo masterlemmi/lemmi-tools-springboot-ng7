@@ -26,7 +26,7 @@ logging:
 spring:
   profiles: prod
   datasource:
-    url: ${JDBC_DATABASE_URL}
+    url: ${JDBC_DATABASE_URL}   # Datasource note use jdbc-url for multiple dbs
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -36,13 +36,6 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: validate
-
-secondDB:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    jdbc-url : jdbc:postgresql://localhost/trvanskeddb
-    username : postgres
-    password : ${PSQL_PWD}
 
 google:
   client:
