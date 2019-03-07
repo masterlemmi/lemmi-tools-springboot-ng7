@@ -1,4 +1,8 @@
-ALTER TABLE PLUGIN MODIFY  IDE VARCHAR(20);
+--oracle
+--ALTER TABLE PLUGIN MODIFY  IDE VARCHAR(20);
+
+--psql
+ALTER TABLE PLUGIN ALTER COLUMN  IDE TYPE VARCHAR(20);
 
 INSERT INTO PLUGIN (id, ide, name, link) VALUES (1, 'INTELLIJ','BashSupport','https://plugins.jetbrains.com/plugin/4230-bashsupport');
 INSERT INTO PLUGIN (id, ide, name, link) VALUES (2, 'INTELLIJ','Scala','https://plugins.jetbrains.com/plugin/1347-scala');
