@@ -15,10 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync
+@SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync @EnableOAuth2Client @EnableAuthorizationServer
 public class LemzkiToolsApplication {
 
     private static final Logger LOGGER = LogManager.getLogger(LemzkiToolsApplication.class);

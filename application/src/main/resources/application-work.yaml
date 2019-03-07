@@ -24,6 +24,8 @@ logging:
 
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles: work
   h2:
     console:
@@ -68,4 +70,11 @@ google:
         limit: 30
 
 security:
-  ignored : "*.bundle.*"
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: read,write
+      auto-approve-scopes: '.*'
+
+
