@@ -48,6 +48,6 @@ class PhraseControllerImpl implements PhraseController {
     }
     @Override
     public void seedDatabase(@RequestParam("filename") String filename) {
-        service.seedDatabase(filename);
+
     }
 }

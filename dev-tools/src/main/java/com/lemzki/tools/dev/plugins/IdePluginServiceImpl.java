@@ -19,7 +19,7 @@ class IdePluginServiceImpl implements IdePluginService {
     private static final String FILE_NAME = "ide_plugins.csv";
 
     @Autowired
-    CSVResourceReader<IdePlugin> resourceReader;
+    CSVResourceReader resourceReader;
 
     private Function<CSVRecord, IdePlugin> idePluginMapper = (record) -> {
         IdePlugin plugin =  new IdePlugin();

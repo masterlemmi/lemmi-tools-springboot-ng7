@@ -15,6 +15,6 @@ public interface PhraseService {
     void updateWord(long id, Phrase phrase);
 
     //seeds db for from resources
-    List seedDatabase(String filename);
+    void seedDatabase(String filename);
 
 }

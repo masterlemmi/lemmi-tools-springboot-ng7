@@ -19,17 +19,12 @@ class IdeShortcutServiceImpl implements IdeShortcutService {
     private static final String FILE_NAME = "ide_shortcuts.csv";
 
     @Autowired
-    CSVResourceReader<IdeShortcut> resourceReader;
+    CSVResourceReader resourceReader;
 
-    private Function<CsvData<IdeShortcut>, List<IdeShortcut>> ideshortcutMapper = (record) -> {
-        IdeShortcut shortcut = new IdeShortcut();
 
-        return null;
-    };
 
     @Override
     public List<IdeShortcut> getAllShortcuts() {
-        return resourceReader.read(FILE_NAME)
-                .mapResults(ideshortcutMapper);
+        return null;
     }
 }
