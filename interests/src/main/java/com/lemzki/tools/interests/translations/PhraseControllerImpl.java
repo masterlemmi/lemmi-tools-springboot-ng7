@@ -5,6 +5,7 @@ import com.lemzki.tools.exception.ResourceNotFoundException;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -45,6 +46,8 @@ class PhraseControllerImpl implements PhraseController {
         service.updateWord(id, phrase);
 
     }
+    @Override
+    public void seedDatabase(@RequestParam("filename") String filename) {
 
-    //TODO: create import/export endpoints
+    }
 }

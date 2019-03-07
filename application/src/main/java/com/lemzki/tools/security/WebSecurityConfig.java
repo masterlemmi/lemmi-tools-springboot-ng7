@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -65,7 +66,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/").permitAll()
                     .antMatchers("/h2/**").permitAll()
                     .antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll()
-                    .antMatchers("/ide/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/ide/**").authenticated()
+                    .antMatchers( "/ide/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/phrases/**").authenticated()
+                    .antMatchers( "/phrases/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                .logout()

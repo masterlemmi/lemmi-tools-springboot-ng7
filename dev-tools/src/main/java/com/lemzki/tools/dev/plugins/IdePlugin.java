@@ -3,10 +3,7 @@ package com.lemzki.tools.dev.plugins;
 import com.lemzki.tools.dev.Ide;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="PLUGIN")
@@ -20,6 +17,7 @@ public class IdePlugin {
     @Id
     @GeneratedValue
     private Long id;
+    @Enumerated(EnumType.STRING)
     private Ide ide;
     private String name;
     private String link;

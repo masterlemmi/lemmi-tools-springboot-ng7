@@ -1,11 +1,12 @@
 package com.lemzki.tools.reader;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 import org.apache.commons.csv.CSVRecord;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.DoubleStream;
 
 /**
  * Holder for List of records parse from file
@@ -15,12 +16,8 @@ import java.util.stream.DoubleStream;
 @Getter
 @ToString
 @AllArgsConstructor
-public class CsvData<T> {
+public class CsvData {
     private String[] headers;
-    private List<CSVRecord> records;
+    private List<CSVRecord> records = new ArrayList<>();
 
-
-    public List<T> mapResults(Function<CsvData<T>, List<T>> mapper) {
-       return mapper.apply(this);
-    }
 }
