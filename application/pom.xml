@@ -121,6 +121,8 @@
             <scope>runtime</scope>
         </dependency>
 
+
+        <!--can't seem to make these webjars work so reveritng to use cdn instead
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
@@ -135,6 +137,7 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
         </dependency>
+        -->
 
     </dependencies>
 
