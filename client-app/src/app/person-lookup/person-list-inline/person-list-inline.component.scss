@@ -1,0 +1,21 @@
+$tag-background-color:red;
+
+figure {
+    margin-right: .5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+a.tag {
+    margin-bottom: 1.5rem;
+    background-color: transparent;
+}
+
+.tags {
+    margin-bottom: -1.5rem;
+}
+
+.is-rounded-modified {
+    -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+}

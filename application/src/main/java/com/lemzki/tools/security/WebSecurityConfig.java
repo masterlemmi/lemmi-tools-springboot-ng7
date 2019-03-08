@@ -31,6 +31,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
@@ -67,12 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/h2/**").permitAll()
+                    //angular dependencies
+                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("*css", "*js").permitAll()
                     .antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll()
                     .antMatchers(HttpMethod.GET, "/ide/**").authenticated()
                     .antMatchers( "/ide/**").hasRole("ADMIN")
                     .antMatchers(HttpMethod.GET, "/phrases/**").authenticated()
                     .antMatchers( "/phrases/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
                     .and()
                .logout()
                     .logoutUrl("/lemmeout")
@@ -127,6 +131,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
+
+
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {

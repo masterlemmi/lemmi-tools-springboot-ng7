@@ -1,0 +1,17 @@
+<div class="container" (click)="personChosen(person)">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-32x32">
+        <img class="is-rounded" src="{{person.photoUrl}}" default>
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p class="has-text-info is-size-5">
+          <strong>{{person.name}}</strong>
+          <br /> <small>"{{person.nickname}}"</small>
+        </p>
+      </div>
+    </div>
+  </article>
+</div>

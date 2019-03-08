@@ -25,4 +25,5 @@ $ cat file.sql | heroku pg:psql --app app_name
 $ echo "select * from table;" | heroku pg:psql --app app_name
 $ heroku pg:psql --app app_name < file.sql
 
+VIEW LOGS:
 heroku logs -a app_nme

@@ -1,0 +1,81 @@
+
+
+div.hero-header {
+    margin: 1.5rem 2rem 1.5rem;
+  }
+  
+  div.container {
+    margin-bottom: 1.5rem;
+  }
+  
+  
+  a.disabled {
+      cursor: not-allowed;
+      background-color: pink;
+  }
+  
+
+  .profile-pic {
+    display: block;
+    margin: auto;
+    position: relative;
+   
+      &__img {
+      height: 100%;
+    //  transform: translateX(-4rem) scale(1.4);
+      backface-visibility: hidden;
+      transition: all .5s;
+      }
+
+      &__edit {
+        cursor: pointer;
+         width: 10rem;
+         background-color: lightgrey;
+         position: absolute;
+         top: 70%;
+         left: 50%;
+         transform: translate(-50%, 20%);
+         color: black;
+         font-size: 1rem;
+         text-align: center;
+         opacity: 0;
+         transition: all .5s;
+         backface-visibility: hidden;
+     }
+
+     &:hover &__edit {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+  }
+
+  &:hover &__img {
+   //   transform: translateX(-4rem) scale(1);
+      filter: blur(3px) brightness(80%);
+  }
+
+  }
+
+
+.is-female {
+  background-color: deeppink !important; 
+}
+
+.person-list{
+  margin-top: .2rem;
+}
+
+.person-search{
+  margin: .5rem 1rem;
+  border: 2px solid ;
+  border-color:#a7dda7;
+  border-radius: 5px;
+  padding: .5rem;
+}
+
+a.add-person{
+  background-color: transparent !important;
+}
+
+.is-deceased{
+
+}

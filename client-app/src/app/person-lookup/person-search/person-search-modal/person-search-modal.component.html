@@ -1,0 +1,29 @@
+<div class="modal" [ngClass]="{'is-active': modalIsOpen}">
+  <div class="modal-background" (click)="close()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{modalTitle}}</p>
+      <button class="delete" aria-label="close" (click)="close()"></button>
+    </header>
+    <section class="modal-card-body">
+
+      <div class="field is-grouped is-grouped-multiline person-list">
+
+        <div class="control" *ngFor="let person of tempList; let i= index">
+          <div class="tags has-addons is-medium">
+            <a class="tag is-link is-medium" [ngClass]="{'is-female': person.gender == 'FEMALE'}">
+              {{person.name}}</a>
+            <a class="tag is-delete is-medium" (click)="tempList.splice(i, 1)"></a>
+          </div>
+        </div>
+      </div>
+
+      <person-search class="person-search" (searchResultClick)="addToSet($event)"></person-search>
+
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="save()">Save changes</button>
+      <button class="button" (click)="close()">Cancel</button>
+    </footer>
+  </div>
+</div>

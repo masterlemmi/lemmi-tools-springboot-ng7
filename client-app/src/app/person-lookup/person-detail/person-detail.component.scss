@@ -1,0 +1,27 @@
+div.hero-header {
+  margin-top: 1.5rem;
+}
+
+div.container {
+  margin-bottom: 1.5rem;
+}
+
+
+.hero {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(lightgreen, 0.8), 
+      rgba(rgb(1, 105, 1), 0.8)),
+      url('assets/tree.jpg') !important;
+  background-size: cover;
+  background-position: center center;
+}
+
+a.disabled {
+    cursor: not-allowed;
+    background-color: pink;
+}
+
+.profile-function{
+  margin: .5rem .5rem 0;
+}

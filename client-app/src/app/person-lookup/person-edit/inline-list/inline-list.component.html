@@ -1,0 +1,16 @@
+<div class="field is-grouped is-grouped-multiline person-list">
+
+  <div class="control" *ngFor="let person of peopleList; let i= index">
+    <div class="tags has-addons is-medium">
+      <a class="tag is-link is-medium" [ngClass]="{'is-female': person.gender == 'FEMALE'}">
+        {{person.name}}</a>
+      <a class="tag is-delete is-medium" (click)="peopleList.splice(i, 1)"></a>
+    </div>
+  </div>
+
+  <div class="control">
+    <a class=" tag is-link is-light is-medium  add-person" (click)="openModal(personSearchModal)">[Add]</a>
+  </div>
+</div>
+
+<person-search-modal #personSearchModal [list]="peopleList" [title]="modalTitle"></person-search-modal>
