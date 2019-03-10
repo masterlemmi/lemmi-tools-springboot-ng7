@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --prod --output-path ui-src/META-INF/resources",
+    "build": "ng build --prod --output-path ui-src/META-INF/resources/ui --deployUrl ui/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -14,9 +14,9 @@ import {  AuthGuard
 
 
 const routes: Routes = [
-{ path: 'people', loadChildren: () => PersonLookupModule},
-{ path: 'devtools', loadChildren: () => DevtoolsModule},
-{ path: 'interests', loadChildren: () => InterestsModule},
+{ path: 'people', loadChildren: "app/person-lookup/person-lookup.module#PersonLookupModule"},
+{ path: 'devtools', loadChildren: "../devtools/devtools.module#DevtoolsModule"},
+{ path: 'interests', loadChildren: "../interests/interests.module#InterestsModule"},
   { path: 'test', component: DemoComponent },
   { path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },

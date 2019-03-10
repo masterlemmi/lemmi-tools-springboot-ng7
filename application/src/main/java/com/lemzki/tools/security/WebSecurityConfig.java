@@ -132,6 +132,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
 
+            @Override
+            public void addViewControllers(ViewControllerRegistry registry) {
+                registry.addViewController("/").setViewName("forward:/ui/index.html");
+
+            }
+
+//            @Override
+//            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//                registry.addResourceHandler("/ui/**").addResourceLocations("classpath:/ui/");
+//            }
 
 
             @Override

@@ -5,6 +5,7 @@ import com.lemzki.tools.people.db.loader.PersonLoader;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.User;
 import com.lemzki.tools.security.UserService;
+import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,17 @@ public class LemzkiToolsApplication {
         };
     }
 
-    @GetMapping("/user") public ResponseEntity<User> user() {
-        User user = loggedInUser.get();
+    @GetMapping("/user") public ResponseEntity<User> user() throws NotFoundException {
 
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            return ResponseEntity.ok(user);
-        }
+        throw new NotFoundException("ESTSTS");
+
+//        User user = loggedInUser.get();
+//
+//        if (user == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        } else {
+//            return ResponseEntity.ok(user);
+//        }
     }
 
 

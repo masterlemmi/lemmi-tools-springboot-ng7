@@ -4,6 +4,7 @@ spring:
     active: h2
     default: h2
 
+
 server:
   error:
     whitelabel:
