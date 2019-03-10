@@ -1,0 +1,57 @@
+debug: false
+
+server:
+  port: 8082
+
+log4j:
+  logger:
+    org:
+      hibernate:
+        type: trace
+
+logging:
+  level:
+    org:
+      springframework:
+        web : DEBUG
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+
+spring:
+  profiles: home
+  datasource:
+    url: jdbc:postgresql://localhost/lemmitools   # Datasource note use jdbc-url for multiple dbs
+    username: postgres
+    password: ${PSQL_PWD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: validate
+
+google:
+  client:
+    clientId : 729817514724-7jp1jis81fiuk4pvkiqc5nk2kspqev22.apps.googleusercontent.com
+    clientSecret : ${LT_SECRET}
+    accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: profile email https://www.googleapis.com/auth/contacts
+  resource:
+    userInfoUri: https://www.googleapis.com/userinfo/v2/me
+    preferTokenInfo: false
+  people:
+    api:
+      write:
+        limit: 30
+
+security:
+  ignored : "*.bundle.*"

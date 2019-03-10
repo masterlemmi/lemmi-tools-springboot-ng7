@@ -33,9 +33,8 @@ const httpOptions = {
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  login(): Observable<any> {
-    console.log("login from auhtservice")
-    return this.http.get<any>(this. userLink).pipe(
+  getUser(): Observable<any> {
+   return this.http.get<any>(this. userLink).pipe(
       delay(1000),
       tap(data => {
         console.log(data)
@@ -55,9 +54,21 @@ const httpOptions = {
   }
   
 
-  logout(): void {
-    this.isLoggedIn = false;
-  }
+
+  logout(): Observable<any> {
+     return this.http.post<any>("/lemmeout", {}).pipe(
+      delay(1000),
+      tap(data => {
+        console.log("logout resp", data)
+        this.isLoggedIn = false;
+        this.user = null;
+      }), catchError((er, ca) => {
+        console.log("log out err", er, ca)
+        this.isLoggedIn = false;
+        return of("lemobservablestring");
+      })
+    )
+   }
 
 
   

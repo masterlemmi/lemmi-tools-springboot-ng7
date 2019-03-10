@@ -13,7 +13,9 @@ SAVE/UPDATE USER
 COMMANDS:
 RUN application mvn spring-boot:run -pl application
 BUILD aLL mvn clean install
-BUILD REST only: mvn -P rest clean install
+BUILD REST only:
+mvn -P rest clean install
+mvn -pl '!client-app' install
 
 Integrate with Angular Project:
 cd to angula project mvn
