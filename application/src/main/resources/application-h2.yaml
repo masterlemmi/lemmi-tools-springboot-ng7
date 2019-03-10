@@ -1,9 +1,7 @@
-debug: false
+debug: true
 
 server:
   port: 8082
-  servlet:
-    context-path: /api
 
 log4j:
   logger:
@@ -15,7 +13,7 @@ logging:
   level:
     org:
       springframework:
-        web : DEBUG
+        web : trace
       hibernate:
         SQL: debug
         type:

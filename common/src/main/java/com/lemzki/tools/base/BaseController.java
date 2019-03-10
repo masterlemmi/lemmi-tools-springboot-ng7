@@ -1,6 +1,6 @@
 package com.lemzki.tools.base;
 
-public interface BaseController {
+import org.springframework.web.bind.annotation.RequestMapping;
 
-    public static final String BASE_URL = "/api";
-}
+@RequestMapping("/api")
+public abstract class BaseController {}

@@ -31,6 +31,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
@@ -67,11 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .antMatchers("/h2/**").permitAll()
-                    .antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll()
-                    .antMatchers(HttpMethod.GET, "/ide/**").authenticated()
-                    .antMatchers( "/ide/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/phrases/**").authenticated()
-                    .antMatchers( "/phrases/**").hasRole("ADMIN")
+                    //angular dependencies
+                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("*css", "*js").permitAll()
+                    .antMatchers("/", "/login**", "/webjars/**", "/error**", "/ui**/*").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api**").authenticated()
+                    .antMatchers( "/api**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                .logout()
@@ -127,6 +129,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
+
+            @Override
+            public void addViewControllers(ViewControllerRegistry registry) {
+                registry.addViewController("/").setViewName("forward:/ui/index.html");
+
+            }
+
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/ui/**").addResourceLocations("/ui/");
+            }
+
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {

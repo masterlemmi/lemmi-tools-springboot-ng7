@@ -1,0 +1,15 @@
+.hero {
+    background-image:  linear-gradient(
+        to right bottom,
+        rgba(rgb(70, 73, 70), 0.8), 
+        rgba(rgb(49, 61, 49), 0.8)),
+        url('assets/darkroom.jpg') !important;
+    background-size: cover;
+    background-position: center center;
+  }
+  
+
+.hero-head{
+    margin: 3rem  1rem;
+    
+}

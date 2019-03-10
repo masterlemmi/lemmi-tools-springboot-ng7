@@ -1,0 +1,18 @@
+<div class="card person-group" *ngIf="personList && personList.length">
+  <header class="card-header" (click)="hideList=!hideList">
+
+    <p class="card-header-title">
+      {{groupName}}
+    </p>
+    <a  class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content" [hidden]="hideList">
+    <div class="content">
+      <person-list-inline [list]="personList"></person-list-inline>
+    </div>
+  </div>
+</div>

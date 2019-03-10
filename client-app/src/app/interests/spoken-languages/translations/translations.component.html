@@ -1,0 +1,58 @@
+
+
+<nav class="panel">
+  <p class="panel-heading">
+    Translations
+  </p>
+
+  
+  
+
+
+
+  <div class="panel-block">
+    <p class="control has-icons-left">
+      <input class="input is-small" type="text" placeholder="search">
+      <span class="icon is-small is-left">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </span>
+    </p>
+  </div>
+  <div class="panel-block ">
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>
+            
+            <div class="dropdown" [class.is-active]="toggle">
+                <div class="dropdown-trigger" (click)="toggle=!toggle">
+                  {{selectedLanguage}} 
+                  <span class="icon is-small">
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu" *ngIf="languages">
+              <div class="dropdown-content">
+                <div *ngFor="let item of languages">
+                    <a class="dropdown-item" (click)="onDropDownSelection(item); toggle= false">
+                        {{item}}
+                      </a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </th>
+          <th> English</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let obj of data">
+
+          <td *ngFor="let key of keys">{{obj[key]}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</nav>

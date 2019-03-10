@@ -1,0 +1,30 @@
+<div class="container search-people">
+
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input class="input is-primary is-large is-rounded" type="text" placeholder="Find person ... " #searchBox
+                id="search-box" (input)="search(searchBox.value)" />
+            <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+            </span>
+
+        </p>  
+    </div>
+
+    <div *ngIf="(people$ | async) as people">
+        <div class="dropdown  search-results" [ngClass]="{'is-active': people && people.length}">
+            <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+                <div class="dropdown-content">
+                    <div class="dropdown-item" *ngFor="let person of people">
+                        <person-search-result [person]="person" 
+                        (dropDownClick)="onDropDownResultClick($event)"></person-search-result>
+                        <hr class="dropdown-divider">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

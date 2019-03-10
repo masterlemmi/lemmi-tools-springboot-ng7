@@ -1,9 +1,15 @@
 
 spring:
   profiles:
-    active=h2:
+    active: h2
     default: h2
 
+  #throw an exception when it can’t find a handler for a particular URL
+  mvc:
+    throw-exception-if-no-handler-found: true
+# Disable the default mappings
+  resources:
+    :add-mappings: false
 server:
   error:
     whitelabel:

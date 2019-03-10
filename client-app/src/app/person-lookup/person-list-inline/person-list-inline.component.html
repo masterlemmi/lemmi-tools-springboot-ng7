@@ -1,0 +1,12 @@
+<div class="field is-grouped is-grouped-multiline" >
+  <div class="control" *ngFor="let person of personList">
+    <div class="tags has-addons">
+        <figure class="image is-24x24" routerLink="/people/id/{{person.id}}">
+          <img class="is-rounded" [src]="person.photoUrl" default>
+        </figure>
+      <a class="tag is-link is-medium "  
+          [ngStyle]="{'color': person.gender == 'MALE' ? 'blue': 'deeppink'}"
+          routerLink="/people/id/{{person.id}}">{{person.name}}</a>
+    </div>
+  </div>
+</div>

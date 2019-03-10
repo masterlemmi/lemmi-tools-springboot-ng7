@@ -1,0 +1,14 @@
+<table class="table is-fullwidth">
+  <thead *ngIf="headers.length">
+    <tr>
+      <th *ngFor="let header of headers">{{header}}</th>
+   </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let obj of data">
+        
+      <td *ngFor="let key of getKeys(obj)">{{obj[key]}}</td>
+     </tr>
+   </tbody>
+</table>

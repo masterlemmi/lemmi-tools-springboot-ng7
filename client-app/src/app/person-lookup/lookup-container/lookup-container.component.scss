@@ -1,0 +1,13 @@
+.hero {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(lightgreen, 0.8), 
+        rgba(rgb(1, 105, 1), 0.8)),
+        url('assets/tree.jpg') !important;
+    background-size: cover;
+    background-position: center center;
+  }
+  
+div.container {
+      margin-top: -30rem;
+  }

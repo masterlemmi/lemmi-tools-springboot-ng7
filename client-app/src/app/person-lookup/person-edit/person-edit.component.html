@@ -1,0 +1,132 @@
+<!-- <section class="hero is-info is-fullheight is-bold"> -->
+  <div class="hero-header">
+
+    <div class="container">
+      <h1 class="title">
+        Edit Profile
+      </h1>
+    </div>
+    <div class="container" >
+    <!-- <div class="container" *ngIf="true"> -->
+
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <figure class="image is-128x128 profile-pic">
+            <img src="{{person.photoUrl}}" default class="profile-pic__img">
+            <figcaption class="profile-pic__edit">
+              <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Upload
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="column">
+          <div class="columns">
+            <div class="column is-half"> 
+              <input id="name" class="input is-medium" type="text" placeholder="Full Name" [(ngModel)]="person.name"></div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-quarter"> <input id="name" class="input is-medium" type="text" placeholder="Nickname" [(ngModel)]="person.nickname">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="radio">
+              <input type="radio" name="gender" [(ngModel)]="person.gender" value="MALE">
+              Male
+            </label>
+            <label class="radio">
+              <input type="radio" name="gender" [(ngModel)]="person.gender" value="FEMALE">
+              Female
+            </label>
+          </div>
+ 
+          <div class="columns">
+            <div class="column is-one-quarter">
+              Birthday: 
+              <input id="name" class="input is-medium" type="date" placeholder="Birth date" 
+              [(ngModel)]="person.dateOfBirth"/>
+            </div>
+            <div *ngIf="person.deceased" class="column is-one-quarter">
+              <div >
+              Death: <input id="name" class="input is-medium" type="date" placeholder="Death date" [(ngModel)]="person.dateOfDeath">
+            </div>
+            </div>
+            <div class="column is-one-quarter is-deceased">
+              <br />
+              <label class="checkbox">
+                <input type="checkbox" [(ngModel)]="person.deceased" >
+                Deceased
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end of profile picture column
+      -->
+
+      <div class="field">
+        <label class="label">Parents </label>
+        <div class="person-search">
+          <person-edit-inline-list [list]="person.parents" [person-type]="'Parent'"></person-edit-inline-list>
+         
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Children </label>
+        <div class="person-search">
+            <person-edit-inline-list [list]="person.children" [person-type]="'Child'"></person-edit-inline-list>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Relationships </label>
+        <div class="person-search" *ngIf="person.relationships as relationships">
+          <div class="columns" *ngFor="let name of objectKeys(relationships)">
+            <div class="column is-one-fifth">
+              <input type="text" placeholder="Type" class="input" [(ngModel)]="name">
+            </div>
+            <div class="column">
+                <person-edit-inline-list [list]="relationships[name]" [person-type]="name"></person-edit-inline-list>
+            </div>
+          </div>
+        </div>
+
+        <div class="control">
+          <a class=" tag is-link is-light is-medium  add-person">[Add Relationship]</a>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Notes</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Some notes..."></textarea>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-text">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </section> -->
+

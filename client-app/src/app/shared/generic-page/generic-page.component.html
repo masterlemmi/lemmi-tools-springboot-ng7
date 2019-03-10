@@ -1,0 +1,24 @@
+<div class="columns">
+  <div class="column is-one-quarter">
+    <aside class="menu">
+
+      <ul class="menu-list">
+        <li *ngFor="let m of menuList" noPropagationClick (click)="show(m)">
+          <a [ngClass]="{'is-active': m.selected}"> {{m.name | titlecase}}</a>
+
+          <ul *ngIf="m.submenu as subList">
+            <li *ngFor="let s of subList" noPropagationClick (click)="show(s)">
+              <a [ngClass]="{'is-active': s.selected}"> {{s.name | titlecase}}</a>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div class="column">
+     <div *ngIf="activePage">
+        <ng-container *ngComponentOutlet="activePage.component; injector: pageInjector" >
+          </ng-container>
+    </div> 
+  
+  </div>
+</div>
