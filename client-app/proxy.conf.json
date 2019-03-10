@@ -4,5 +4,18 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/login/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/user/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
+
 }

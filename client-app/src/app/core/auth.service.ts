@@ -17,7 +17,7 @@ const httpOptions = {
 
   export class AuthService {
 
-  private userLink = 'api/lemmitools/user';  // URL to web api
+  private userLink = '/user';  // URL to web api
   isLoggedIn = false;
   user: User;
 
