@@ -2,8 +2,6 @@ debug: false
 
 server:
   port: ${PORT}
-  servlet:
-    context-path: /api
 
 log4j:
   logger:
