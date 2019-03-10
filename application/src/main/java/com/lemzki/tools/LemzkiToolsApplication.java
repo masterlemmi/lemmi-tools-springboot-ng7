@@ -39,17 +39,15 @@ public class LemzkiToolsApplication {
         };
     }
 
-    @GetMapping("/user") public ResponseEntity<User> user() throws NotFoundException {
+    @GetMapping("/user") public ResponseEntity<User> user() {
 
-        throw new NotFoundException("ESTSTS");
+        User user = loggedInUser.get();
 
-//        User user = loggedInUser.get();
-//
-//        if (user == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        } else {
-//            return ResponseEntity.ok(user);
-//        }
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.ok(user);
+        }
     }
 
 

@@ -1,13 +1,14 @@
 package com.lemzki.tools.interests.translations;
 
 
+import com.lemzki.tools.base.RestBaseController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-public interface PhraseController {
+public interface PhraseController extends RestBaseController {
 
     @GetMapping("/phrases")
     List<Phrase> getAllWords();

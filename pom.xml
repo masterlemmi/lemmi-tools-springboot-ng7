@@ -26,4 +26,17 @@
         <module>client-app</module>
      </modules>
 
+    <profiles>
+        <profile>
+            <id>rest</id>
+            <modules>
+                <module>common</module>
+                <module>person-lookup</module>
+                <module>dev-tools</module>
+                <module>interests</module>
+                <module>application</module>
+            </modules>
+        </profile>
+    </profiles>
+
 </project>

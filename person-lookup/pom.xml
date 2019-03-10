@@ -43,7 +43,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lemzki.tools</groupId>
+            <groupId>com.lemzki.tools.commons</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
