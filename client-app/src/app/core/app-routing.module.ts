@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'test', component: DemoComponent },
   { path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
-  { path: '', pathMatch: 'full', redirectTo: ''},
+  { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: "**",redirectTo:"test"}
 ];
 
