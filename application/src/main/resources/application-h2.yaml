@@ -13,7 +13,7 @@ logging:
   level:
     org:
       springframework:
-        web : DEBUG
+        web : trace
       hibernate:
         SQL: debug
         type:

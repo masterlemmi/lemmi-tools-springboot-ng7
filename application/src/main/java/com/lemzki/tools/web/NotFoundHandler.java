@@ -18,7 +18,7 @@ public class NotFoundHandler {
             return this.getApiResourceNotFoundBody(ex, req);
         else {
 
-        //non existing non API uURLS should be redirect to angular index
+            //non existing non API uURLS should be redirect to angular index
             redirectAttributes.addFlashAttribute("errorMessage", "My Custom error message");
             return "forward:/ui/index.html";
         }
@@ -27,3 +27,4 @@ public class NotFoundHandler {
     private ResponseEntity<String> getApiResourceNotFoundBody(NoHandlerFoundException ex, HttpServletRequest req) {
         return new ResponseEntity<>("Not Found !!", HttpStatus.NOT_FOUND);
     }
+}
