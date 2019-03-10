@@ -4,8 +4,7 @@
 
 
 :TODO:
--googleId in user validate
--user foreign key to each personDb/rel/anything else user specific
+-Angula annotation nto note angular related code used solely lto make angular work so hsould not be changed
 
 LISTENer to authentication success
 SAVE/UPDATE USER

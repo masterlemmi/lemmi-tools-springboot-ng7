@@ -1,30 +1,29 @@
 package com.lemzki.tools.web;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.charset.Charset;
+import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class NotFoundHandler {
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<String> renderDefaultPage() {
-        try {
-            File indexFile = ResourceUtils.getFile("classpath:/ui/index.html");
-            FileInputStream inputStream = new FileInputStream(indexFile);
-            String body = StreamUtils.copyToString(inputStream, Charset.defaultCharset());
-            return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(body);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There was an error completing the action.");
+    @ExceptionHandler(value = NoHandlerFoundException.class)
+    public Object handleStaticResourceNotFound(final NoHandlerFoundException ex, HttpServletRequest req, RedirectAttributes redirectAttributes) {
+
+        //api request should fail normally
+        if (req.getRequestURI().startsWith("/api"))
+            return this.getApiResourceNotFoundBody(ex, req);
+        else {
+
+        //non existing non API uURLS should be redirect to angular index
+            redirectAttributes.addFlashAttribute("errorMessage", "My Custom error message");
+            return "forward:/ui/index.html";
         }
     }
-}
+
+    private ResponseEntity<String> getApiResourceNotFoundBody(NoHandlerFoundException ex, HttpServletRequest req) {
+        return new ResponseEntity<>("Not Found !!", HttpStatus.NOT_FOUND);
+    }

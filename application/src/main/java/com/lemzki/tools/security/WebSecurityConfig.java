@@ -71,11 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //angular dependencies
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("*css", "*js").permitAll()
-                    .antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll()
-                    .antMatchers(HttpMethod.GET, "/ide/**").authenticated()
-                    .antMatchers( "/ide/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/phrases/**").authenticated()
-                    .antMatchers( "/phrases/**").hasRole("ADMIN")
+                    .antMatchers("/", "/login**", "/webjars/**", "/error**", "/ui**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api**").authenticated()
+                    .antMatchers( "/api**").hasRole("ADMIN")
                     .anyRequest().permitAll()
                     .and()
                .logout()
@@ -138,10 +136,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             }
 
-//            @Override
-//            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//                registry.addResourceHandler("/ui/**").addResourceLocations("classpath:/ui/");
-//            }
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/ui/**").addResourceLocations("/ui/");
+            }
 
 
             @Override
