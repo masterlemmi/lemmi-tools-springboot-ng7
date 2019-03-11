@@ -63,7 +63,8 @@ const httpOptions = {
         this.isLoggedIn = false;
         this.user = null;
       }), catchError((er, ca) => {
-        console.log("log out err", er, ca)
+        console.log("log out err", er)
+        console.log("whats a cA", ca)
         this.isLoggedIn = false;
         return of("lemobservablestring");
       })

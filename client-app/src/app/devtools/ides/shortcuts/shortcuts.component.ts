@@ -2,6 +2,7 @@ import { PageItem } from './../../../shared/page-item';
 
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'app/shared/page';
+import { ShortcutService } from './shortcut.service';
 
 export class ShortcutsPageItem extends PageItem{
   
@@ -18,43 +19,25 @@ export class ShortcutsPageItem extends PageItem{
   templateUrl: './shortcuts.component.html',
   styleUrls: ['./shortcuts.component.scss']
 })
+//This class is a subcomponent for hte parent class idescomponent.ts
 export class ShortcutsComponent implements OnInit{
 
   headers = ["Eclipse", "Intelliyyyy", "VsCode", "Description"]
 
+  data: any[] = []
 
-
-  data: any[] = [
-    {
-      name: "Lem",
-      desc: "in Excelsis deo balblabla",
-      desc2: "in Excelsis deo balblabla",
-      id: "tatae tal al al a"
-    },{
-      name: "Lem",
-      desc: "in Excelsis deo balblabla",
-      desc2: "in Excelsis deo balblabla",
-      id: "tatae tal al al a"
-    },{
-      name: "Lem",
-      desc: "in Excelsis deo balblabla",
-      desc2: "in Excelsis deo balblabla",
-      id: "tatae tal al al a"
-    },{
-      name: "Lem",
-      desc: "in Excelsis deo balblabla",
-      desc2: "in Excelsis deo balblabla",
-      id: "tatae tal al al a"
-    },
-]
-
-  constructor() { }
+  constructor(private shortcutService: ShortcutService) { }
 
   ngOnInit() {
+    this.shortcutService.getAll().subscribe(res=>{
+      this.data = res;
+    })
   }
 
   getKeys(obj: any): any[] {
-    return Object.keys(obj);
+    let allKeys: any[] = Object.keys(obj);
+    allKeys.splice(0, 1);
+    return allKeys;
   }
 
 

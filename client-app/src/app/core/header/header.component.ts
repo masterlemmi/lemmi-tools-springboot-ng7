@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(res=>{
-      
+      console.log("HEDER LOGOUT RES", res);
     });
 
   }

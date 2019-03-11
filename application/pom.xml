@@ -63,7 +63,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lemzki.tools</groupId>
+            <groupId>com.lemzki.tools.interest</groupId>
             <artifactId>interests</artifactId>
             <version>${project.version}</version>
         </dependency>
