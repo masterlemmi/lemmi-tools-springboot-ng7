@@ -22,7 +22,7 @@ export class ShortcutsPageItem extends PageItem{
 //This class is a subcomponent for hte parent class idescomponent.ts
 export class ShortcutsComponent implements OnInit{
 
-  headers = ["Eclipse", "Intelliyyyy", "VsCode", "Description"]
+  headers = []
 
   data: any[] = []
 
@@ -31,6 +31,7 @@ export class ShortcutsComponent implements OnInit{
   ngOnInit() {
     this.shortcutService.getAll().subscribe(res=>{
       this.data = res;
+      this.headers = this.getHeaders(res);
     })
   }
 
@@ -38,6 +39,14 @@ export class ShortcutsComponent implements OnInit{
     let allKeys: any[] = Object.keys(obj);
     allKeys.splice(0, 1);
     return allKeys;
+  }
+
+  getHeaders(res : any): any[]{
+    if (res){
+      return this.getKeys(res[0]);
+    }
+
+    return [];
   }
 
 
