@@ -21,10 +21,13 @@ class IdeShortcutServiceImpl implements IdeShortcutService {
     @Autowired
     CSVResourceReader resourceReader;
 
+    @Autowired
+    IdeShortcutRepository repository;
+
 
 
     @Override
     public List<IdeShortcut> getAllShortcuts() {
-        return null;
+        return repository.findAll();
     }
 }

@@ -14,6 +14,8 @@ import { GenericPageComponent } from './generic-page/generic-page.component';
 
 import { DropdownComponent } from './dropdown/dropdown.component';
 
+import { NotfoundComponent } from './notfound/notfound.component';
+
 /* our own custom components */
 //import { SomeCustomComponent } from './some-custom/some-custom.component';
 
@@ -29,7 +31,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     //SomeCustomComponent
     ImagePreloadDirective,
     BurgerToggleDirective, InputFocusDirective, ImageModalComponent, TableComponent, 
-    NoPropagationClickDirective, GenericPageComponent,  DropdownComponent,       
+    NoPropagationClickDirective, GenericPageComponent,  DropdownComponent, NotfoundComponent,       
   ],
   exports: [
     /* angular stuff */

@@ -12,8 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit() {
-    this.authService.login().subscribe(() => {
-      console.log("oninit login");
+    this.authService.getUser().subscribe(() => {
       if (this.authService.isLoggedIn) {
         console.log("received resonse")
         this.user = this.authService.user;
@@ -22,7 +21,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout().subscribe(res=>{
+      console.log("HEDER LOGOUT RES", res);
+    });
 
   }
 

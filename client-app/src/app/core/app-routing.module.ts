@@ -10,18 +10,23 @@ import { MyNavComponent } from 'app/my-nav/my-nav.component';
 import { DemoComponent } from 'app/demo-google/demo.component';
 import {  AuthGuard 
 } from './auth-guard.service';
+import { NotfoundComponent } from 'app/shared/notfound/notfound.component';
 
 
 
 const routes: Routes = [
-{ path: 'people', loadChildren: "app/person-lookup/person-lookup.module#PersonLookupModule"},
+//feature is pending
+// { path: 'people', loadChildren: "app/person-lookup/person-lookup.module#PersonLookupModule"},
+{ path: 'people', component: NotfoundComponent },
 { path: 'devtools', loadChildren: "../devtools/devtools.module#DevtoolsModule"},
 { path: 'interests', loadChildren: "../interests/interests.module#InterestsModule"},
-  { path: 'test', component: DemoComponent },
-  { path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
+  { path: 'demo', component: DemoComponent },
+  { path: 'notfound', component: NotfoundComponent },
+  //{ path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
+  { path: 'private', component: NotfoundComponent },
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: "**",redirectTo:"test"}
+  { path: "**",redirectTo:"error"}
 ];
 
 

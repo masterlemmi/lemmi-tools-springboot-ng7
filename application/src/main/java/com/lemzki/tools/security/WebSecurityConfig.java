@@ -71,18 +71,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //angular dependencies
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("*css", "*js").permitAll()
-                    .antMatchers("/", "/login**", "/webjars/**", "/error**", "/ui**/*").permitAll()
+                    .antMatchers("/", "/home", "/login**", "/webjars/**", "/error**", "/ui**/*").permitAll()
                     .antMatchers(HttpMethod.GET, "/api**").authenticated()
                     .antMatchers( "/api**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                .logout()
                     .logoutUrl("/lemmeout")
-                    .logoutSuccessUrl("/logout_success").permitAll()
                     .deleteCookies("JSESSIONID")
                     .and()
-
-              //  .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+               .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
         if("h2".equalsIgnoreCase(activeProfile)){

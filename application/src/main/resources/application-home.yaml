@@ -1,0 +1,17 @@
+spring:
+  profiles: home
+  datasource:
+    url: jdbc:postgresql://localhost/lemmitools   # Datasource note use jdbc-url for multiple dbs
+    username: postgres
+    password: ${PSQL_PWD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: validate
+
+
+
+
