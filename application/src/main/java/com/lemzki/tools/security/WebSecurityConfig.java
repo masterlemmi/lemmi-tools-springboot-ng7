@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/h2/**").permitAll()
                     //angular dependencies
                     .antMatchers("/resources/**").permitAll()
-                    .antMatchers("*css", "*js").permitAll()
+                    .antMatchers("/people**", "/devtools**", "/interests**").permitAll()
                     .antMatchers("/", "/home", "/login**", "/webjars/**", "/error**", "/ui**/*").permitAll()
                     .antMatchers(HttpMethod.GET, "/api**").authenticated()
                     .antMatchers( "/api**").hasRole("ADMIN")
