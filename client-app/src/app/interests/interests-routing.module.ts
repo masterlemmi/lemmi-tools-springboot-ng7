@@ -9,6 +9,7 @@ import { InterestsHomeComponent } from './home/interests-home.component';
 import { MangaComponent } from './manga/manga.component';
 
 
+
 const routes: Routes = [
   { path: '', component: InterestsHomeComponent, children: [ 
       { path: 'languages', component: SpokenLanguagesComponent}, 

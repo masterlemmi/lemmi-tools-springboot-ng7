@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/home", "/login**", "/webjars/**", "/error**", "/ui**/*").permitAll()
                     .antMatchers(HttpMethod.GET, "/api**").authenticated()
                     .antMatchers( "/api**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
                     .and()
                .logout()
                     .logoutUrl("/lemmeout")

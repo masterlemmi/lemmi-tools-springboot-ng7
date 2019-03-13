@@ -11,6 +11,8 @@ import { DemoComponent } from 'app/demo-google/demo.component';
 import {  AuthGuard 
 } from './auth-guard.service';
 import { NotfoundComponent } from 'app/shared/notfound/notfound.component';
+import { LinechartComponent } from 'app/shared/chart/linechart/linechart.component';
+
 
 
 
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: 'notfound', component: NotfoundComponent },
   //{ path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
+  
+  { path: 'chart', component: LinechartComponent },
   { path: 'private', component: NotfoundComponent },
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home'},

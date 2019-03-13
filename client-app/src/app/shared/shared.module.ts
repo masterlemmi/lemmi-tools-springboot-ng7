@@ -15,7 +15,8 @@ import { GenericPageComponent } from './generic-page/generic-page.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 
 import { NotfoundComponent } from './notfound/notfound.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LinechartComponent } from './chart/linechart/linechart.component';
 /* our own custom components */
 //import { SomeCustomComponent } from './some-custom/some-custom.component';
 
@@ -24,14 +25,14 @@ import { NotfoundComponent } from './notfound/notfound.component';
 @NgModule({
   imports: [
     /* angular stuff */
-    HttpClientModule, CommonModule,
+    HttpClientModule, CommonModule, NgxChartsModule,
     
   ],
   declarations: [
     //SomeCustomComponent
     ImagePreloadDirective,
     BurgerToggleDirective, InputFocusDirective, ImageModalComponent, TableComponent, 
-    NoPropagationClickDirective, GenericPageComponent,  DropdownComponent, NotfoundComponent,       
+    NoPropagationClickDirective, GenericPageComponent,  DropdownComponent, NotfoundComponent, LinechartComponent      
   ],
   exports: [
     /* angular stuff */
