@@ -4,7 +4,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
   @Component({
     selector: 'app-spoken-languages',
-    template: ' <generic-page [item-list]="menuList()"></generic-page>'
+    template: ' <generic-page class="herobgd" [item-list]="menuList()"></generic-page>',
+    styleUrls: ['./spoken-languages.component.scss']
   })
   export class SpokenLanguagesComponent implements OnInit {
 

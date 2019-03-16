@@ -8,10 +8,11 @@ import { MangaComponent } from './manga/manga.component';
 import { MoviesComponent } from './movies/movies.component';
 import { InterestsRoutingModule } from './interests-routing.module';
 import { TranslationsComponent } from './spoken-languages/translations/translations.component';
-import { DebtsAndLoansComponent } from './finance/debts-and-loans/debts-and-loans.component';
+
 
 @NgModule({
-  declarations: [InterestsHomeComponent, SpokenLanguagesComponent, BooksComponent, MangaComponent, MoviesComponent, TranslationsComponent, DebtsAndLoansComponent],
+  declarations: [InterestsHomeComponent, SpokenLanguagesComponent, BooksComponent, 
+    MangaComponent, MoviesComponent, TranslationsComponent],
   imports: [
     InterestsRoutingModule, SharedModule
   

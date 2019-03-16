@@ -40,7 +40,7 @@ import { LinechartComponent } from './chart/linechart/linechart.component';
     FormsModule,
     ImagePreloadDirective, BurgerToggleDirective, InputFocusDirective,
     ImageModalComponent, TableComponent, CommonModule, NoPropagationClickDirective, GenericPageComponent, 
-    DropdownComponent,
+    DropdownComponent, LinechartComponent
   ]
 })
 export class SharedModule { }

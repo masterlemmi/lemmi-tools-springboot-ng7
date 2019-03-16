@@ -63,6 +63,25 @@
       </div>
 
       
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Finances
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item"  (click)="appMenu.nav('/finances/debts')">
+            Debts & Loans
+          </a>
+          <a class="navbar-item" (click)="appMenu.nav('/finances/budget')">
+           Budget
+          </a>
+
+          <a class="navbar-item" (click)="appMenu.nav('/finances/investment')">
+            Investments
+          </a>
+        </div>
+      </div>
+
 
       <a class="navbar-item" routerLink="people">
         Person Lookup

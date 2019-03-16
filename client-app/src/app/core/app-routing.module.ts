@@ -1,3 +1,4 @@
+
 import { InterestsModule } from './../interests/interests.module';
 import { DevtoolsModule } from './../devtools/devtools.module';
 import { HomeComponent } from './home/home.component';
@@ -22,11 +23,10 @@ const routes: Routes = [
 { path: 'people', component: NotfoundComponent },
 { path: 'devtools', loadChildren: "../devtools/devtools.module#DevtoolsModule"},
 { path: 'interests', loadChildren: "../interests/interests.module#InterestsModule"},
+{ path: 'finances', loadChildren: "../finances/finances.module#FinancesModule"},
   { path: 'demo', component: DemoComponent },
   { path: 'notfound', component: NotfoundComponent },
   //{ path: 'private', component: FirstPageComponent, canActivate: [AuthGuard] },
-  
-  { path: 'chart', component: LinechartComponent },
   { path: 'private', component: NotfoundComponent },
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home'},
