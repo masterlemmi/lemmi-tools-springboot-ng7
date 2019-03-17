@@ -3,6 +3,7 @@ package com.lemzki.tools.interests.finance.debts;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +37,18 @@ public class Debt implements Chartable {
         return averagePerMonth().entrySet()
             .stream()
             .map(entrySet -> {
-                String month = entrySet.getKey().name();
+               // String month = entrySet.getKey().name();
                 Double average = entrySet.getValue();
-                return new ChartValue(month, average.toString());
+                return new ChartValue(null, average.toString());
              }).collect(toList());
     }
 
-    public Map<Month, Double> averagePerMonth() {
+    public Map<LocalDate, Double> averagePerMonth() {
         return dues.stream()
             .collect(
-                groupingBy(monthFnc,
-                    averagingDouble(Due::getAmount)));
+                groupingBy(firstOfMonthFnc, averagingDouble(Due::getAmount)));
     }
 
     @Transient
-    private Function<Due, Month> monthFnc = due -> due.getDate().getMonth();
+    private Function<Due, LocalDate> firstOfMonthFnc = due -> due.getDate().withDayOfMonth(1);
 }

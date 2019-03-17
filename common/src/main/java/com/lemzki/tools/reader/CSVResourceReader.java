@@ -23,14 +23,14 @@ public class CSVResourceReader implements ResourceReader<CsvData> {
 
         try {
 
-            File file = new ClassPathResource(filename).getFile();
+            InputStream in = new ClassPathResource(filename).getInputStream();
 
-            Reader in = new FileReader(file);
+            Reader reader = new InputStreamReader(in);
 
             CSVFormat format = CSVFormat.RFC4180.withFirstRecordAsHeader();
 
             String[] headers =format.getHeader();
-            List<CSVRecord> records = format.parse(in).getRecords();
+            List<CSVRecord> records = format.parse(reader).getRecords();
 
             return new CsvData(headers, records);
 

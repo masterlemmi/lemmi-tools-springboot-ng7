@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class DebtServiceImpl implements DebtService{
     @Autowired CSVResourceReader reader;
-    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("M/d/yy");
 
 
     @Override
@@ -26,7 +26,7 @@ public class DebtServiceImpl implements DebtService{
            // .filter(csv->csv.get(2).equalsIgnoreCase("CAR_LOAN"))
             .map(csv->{
                 Debt debt = new Debt();
-                LocalDate date = LocalDate.parse(csv.get(0));
+                LocalDate date = LocalDate.parse(csv.get(0), dtf);
                 Double amt = Double.parseDouble(csv.get(1));
                 String name = csv.get(2);
                 debt.setName(name);
