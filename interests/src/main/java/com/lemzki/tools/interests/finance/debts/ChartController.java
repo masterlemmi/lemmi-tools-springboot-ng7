@@ -8,4 +8,9 @@ import java.util.List;
 public interface ChartController {
     @GetMapping("/charts/{chartName}")
     List<ChartMultiValue> getChart(@PathVariable("chartName") String chartName);
+
+    @GetMapping("/charts/{chartName}")
+    List<ChartMultiValue> getChart(@PathVariable("chartName") String chartName);
+
+
 }
