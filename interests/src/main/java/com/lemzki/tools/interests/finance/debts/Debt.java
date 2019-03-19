@@ -1,10 +1,12 @@
 package com.lemzki.tools.interests.finance.debts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lemzki.tools.charts.ChartValue;
+import com.lemzki.tools.charts.Chartable;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +14,19 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
 
-@Entity @Table(name = "DEBT_LOAN") @Getter @Setter @ToString @EqualsAndHashCode @NoArgsConstructor
+@Entity @Table(name = "DEBT_LOAN")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode (onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 @AllArgsConstructor
-public class Debt implements Chartable {
+public class Debt  {
     @Id
     @GeneratedValue
+    @EqualsAndHashCode.Include
     private Long id;
+    @EqualsAndHashCode.Include
     private String name;
 
     @OneToMany(mappedBy = "debt", cascade = CascadeType.ALL, orphanRemoval = true) private List<Due>
@@ -33,22 +42,14 @@ public class Debt implements Chartable {
         due.setDebt(null);
     }
 
-    @Override public List<ChartValue> getSeries() {
-        return averagePerMonth().entrySet()
-            .stream()
-            .map(entrySet -> {
-               // String month = entrySet.getKey().name();
-                Double average = entrySet.getValue();
-                return new ChartValue(null, average.toString());
-             }).collect(toList());
-    }
-
+    @JsonIgnore
     public Map<LocalDate, Double> averagePerMonth() {
         return dues.stream()
             .collect(
                 groupingBy(firstOfMonthFnc, averagingDouble(Due::getAmount)));
     }
 
+    @JsonIgnore
     @Transient
     private Function<Due, LocalDate> firstOfMonthFnc = due -> due.getDate().withDayOfMonth(1);
 }

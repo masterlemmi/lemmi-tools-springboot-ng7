@@ -1,4 +1,4 @@
-package com.lemzki.tools.interests.finance.debts;
+package com.lemzki.tools.charts;
 
 import java.util.List;
 

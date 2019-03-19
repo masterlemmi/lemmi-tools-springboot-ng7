@@ -1,5 +1,6 @@
-package com.lemzki.tools.interests.finance.debts;
+package com.lemzki.tools.charts;
 
+import com.lemzki.tools.interests.finance.debts.ServiceFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

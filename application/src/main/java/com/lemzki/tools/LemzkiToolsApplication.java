@@ -1,11 +1,13 @@
 package com.lemzki.tools;
 
 
+import com.lemzki.tools.interests.finance.debts.Debt;
+import com.lemzki.tools.interests.finance.debts.DebtRepository;
+import com.lemzki.tools.interests.finance.debts.DebtService;
 import com.lemzki.tools.people.db.loader.PersonLoader;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.User;
 import com.lemzki.tools.security.UserService;
-import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
 @SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync @EnableOAuth2Client @EnableAuthorizationServer
 public class LemzkiToolsApplication {
 
@@ -33,9 +39,12 @@ public class LemzkiToolsApplication {
 
     @Autowired LoggedInUser loggedInUser;
 
+
+
     @Bean ApplicationRunner init(PersonLoader personLoader) {
         return args -> {
             //code to run on init
+            //
         };
     }
 
@@ -54,6 +63,16 @@ public class LemzkiToolsApplication {
     @GetMapping("/logout_success") public ResponseEntity<String> logout() {
         String message = "You have successfully logged out.";
         return ResponseEntity.ok(message);
+    }
+
+
+    @Autowired DebtRepository debtRepository;
+    @GetMapping("/doIt")
+    public Collection doIt(){
+        LocalDate from = LocalDate.of(2018,12,1);
+        LocalDate to = LocalDate.of(2019,1,1);
+        Collection<Debt> debts =  debtRepository.findDebt("RCBC_VISA", from, to);
+        return debts;
     }
 
 

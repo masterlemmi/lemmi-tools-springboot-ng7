@@ -1,11 +1,19 @@
 package hello;
 
 import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Test {
+public class TestMain {
+
+    @Test
+    public void test3(){
+
+    }
 
 
     @org.junit.Test

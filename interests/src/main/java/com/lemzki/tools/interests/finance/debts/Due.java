@@ -1,4 +1,5 @@
 package com.lemzki.tools.interests.finance.debts;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,8 +17,9 @@ public class Due {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name = "DUE_DATE")
     private LocalDate date;
-    @Column(precision=12, scale=2)
+    @Column(columnDefinition = "NUMBER(15,2)")
     private Double amount;
 
     public Due(LocalDate date,Double amount){
@@ -25,6 +27,7 @@ public class Due {
         this.amount = amount;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "debt_id")
     private Debt debt;
