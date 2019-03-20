@@ -6,7 +6,7 @@ import java.util.Map;
 public class ExceptionResponse {
 	private Date timestamp;
 	private String message;
-	private Map<String, String> details;
+	private Object details;
 
 	public ExceptionResponse(Date timestamp, String message, Map<String, String> details) {
 		super();
@@ -16,6 +16,10 @@ public class ExceptionResponse {
 	}
 
 	public ExceptionResponse(Date timestamp, String message, Object description) {
+		this.timestamp = timestamp;
+		this.message = message;
+		this.details = description;
+
 	}
 
 	public Date getTimestamp() {
@@ -26,7 +30,7 @@ public class ExceptionResponse {
 		return message;
 	}
 
-	public Map<String, String> getDetails() {
+	public Object getDetails() {
 		return details;
 	}
 

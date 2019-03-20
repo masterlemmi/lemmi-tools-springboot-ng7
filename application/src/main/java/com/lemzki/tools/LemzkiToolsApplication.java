@@ -1,9 +1,9 @@
 package com.lemzki.tools;
 
 
+import com.google.common.collect.Sets;
 import com.lemzki.tools.interests.finance.debts.Debt;
 import com.lemzki.tools.interests.finance.debts.DebtRepository;
-import com.lemzki.tools.interests.finance.debts.DebtService;
 import com.lemzki.tools.people.db.loader.PersonLoader;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.User;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 
 @SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync @EnableOAuth2Client @EnableAuthorizationServer
 public class LemzkiToolsApplication {
@@ -71,8 +70,8 @@ public class LemzkiToolsApplication {
     public Collection doIt(){
         LocalDate from = LocalDate.of(2018,12,1);
         LocalDate to = LocalDate.of(2019,1,1);
-        Collection<Debt> debts =  debtRepository.findDebt("RCBC_VISA", from, to);
-        return debts;
+        Debt debt = debtRepository.findDebtByNameAndByDueDate("RCBC_VISA", from, to);
+        return Sets.newHashSet(debt);
     }
 
 

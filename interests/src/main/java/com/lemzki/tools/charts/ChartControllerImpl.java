@@ -14,18 +14,18 @@ import java.util.function.Predicate;
 
     @Override public List<ChartMultiValue> getChart(String chartName, Optional<String> from,
         Optional<String> to) {
-        ChartService chartService =  chartSvcFinder.getService(matchesName(chartName));
+        ChartService chartService =  chartSvcFinder.getService(byName(chartName));
         return chartService.getChart();
     }
 
     @Override public ChartMultiValue getChartItem(String chartName, String chartItem, Optional<String> from,
         Optional<String> to) {
-        ChartService chartService =  chartSvcFinder.getService(matchesName(chartName));
+        ChartService chartService =  chartSvcFinder.getService(byName(chartName));
 
-        return  chartService.getChartItem(chartName, from, to);
+        return  chartService.getChartItem(chartItem, from, to);
     }
 
-    private Predicate<ChartService> matchesName(String chartName) {
+    private Predicate<ChartService> byName(String chartName) {
         return svc -> svc.chartName().equalsIgnoreCase(chartName);
     }
 

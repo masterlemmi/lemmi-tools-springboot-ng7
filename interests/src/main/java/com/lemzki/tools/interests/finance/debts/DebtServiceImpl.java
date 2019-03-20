@@ -1,11 +1,11 @@
 package com.lemzki.tools.interests.finance.debts;
 
 import com.google.common.collect.Lists;
+import com.lemzki.tools.exception.ResourceNotFoundException;
 import com.lemzki.tools.reader.CSVResourceReader;
 import com.lemzki.tools.reader.CsvData;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,20 +25,28 @@ public class DebtServiceImpl implements DebtService{
     final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("M/d/yy");
 
     @Override public Debt getDebtByNameDuesByRange(String chartItem, LocalDate from, LocalDate to) {
-        return null;
+
+        Debt debt = repository.findDebtByNameAndByDueDate(chartItem, from,to);
+
+        if (debt == null) {
+            throw new ResourceNotFoundException("Unable to find chart data for "
+                + chartItem + " from:"  + from + " to:" + to);
+        }
+
+        return debt;
     }
 
     @Override public Debt getDebtByName(String chartItem) {
-       return getDebts(csv->csv.get(2).equalsIgnoreCase("chartItem")).get(0);
+       return repository.findByName(chartItem);
     }
 
     @Override
     public List<Debt> getDebts() {
-        return getDebts((record)->true);
+        return repository.findAll();
     }
 
 
-    private List<Debt> getDebts(Predicate<CSVRecord> filter) {
+    private List<Debt> getDebtsFromResource(Predicate<CSVRecord> filter) {
         CsvData csvData = reader.read("debts.csv");
         Map<String, List<Debt>> map =  csvData.getRecords().stream()
            .filter(filter)
@@ -71,9 +79,6 @@ public class DebtServiceImpl implements DebtService{
            debt.setDues(aggrDues);
            finallist.add(debt);
        }
-
-
-
         return finallist;
     }
 }

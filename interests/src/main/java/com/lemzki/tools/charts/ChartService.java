@@ -13,7 +13,8 @@ public interface ChartService {
 
     List<ChartMultiValue> getChart();
 
-    ChartMultiValue getChartItem(String chartItem, Optional<String> from, Optional<String> to);
+    List<ChartMultiValue> getChartItem(String chartItem, Optional<String> from,
+        Optional<String> to, Optional<Boolean> showBurnDown);
 
     void insertTestData();
 }

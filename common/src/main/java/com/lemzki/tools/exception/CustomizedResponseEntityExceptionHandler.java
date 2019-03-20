@@ -18,6 +18,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        ex.printStackTrace();
         String desc = request.getDescription(false);
         ExceptionResponse exceptionResponse = new ExceptionResponse(
             new Date(),
@@ -27,9 +28,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
                 request.getDescription(false));
+        ex.printStackTrace();
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 

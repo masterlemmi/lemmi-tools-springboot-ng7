@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface DebtRepository extends JpaRepository<Debt, Long> {
     @Query("from Debt D  join fetch D.dues Ds where D.name =:name AND Ds.date >= :from AND Ds.date <= :to")
-    Set<Debt> findDebt(String name, LocalDate from, LocalDate to);
+    Debt findDebtByNameAndByDueDate(String name, LocalDate from, LocalDate to);
 
-    List<Debt> findByName(String name);
+    Debt findByName(String name);
 }
