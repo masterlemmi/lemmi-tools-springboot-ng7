@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 
 public class DateParsesTest {
 
@@ -21,4 +22,22 @@ public class DateParsesTest {
         System.out.println(date);
 
     }
+
+    @Test
+    public void testIterateDate(){
+
+        LocalDate fromRange = LocalDate.of(2019, 10, 1);
+        LocalDate toRange = LocalDate.of(2020, 12, 31);
+
+        LocalDate end = toRange.withDayOfMonth(1);
+        for (LocalDate start = fromRange.withDayOfMonth(1);
+             start.isBefore(end) || start.isEqual(end);
+             start = start.with(TemporalAdjusters.firstDayOfNextMonth())) {
+
+            System.out.println(start);
+
+            }
+
+        }
+
 }

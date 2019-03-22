@@ -70,7 +70,7 @@ public class LemzkiToolsApplication {
     public Collection doIt(){
         LocalDate from = LocalDate.of(2018,12,1);
         LocalDate to = LocalDate.of(2019,1,1);
-        Debt debt = debtRepository.findDebtByNameAndByDueDate("RCBC_VISA", from, to);
+        Debt debt = debtRepository.findDebt("RCBC_VISA", from, to);
         return Sets.newHashSet(debt);
     }
 

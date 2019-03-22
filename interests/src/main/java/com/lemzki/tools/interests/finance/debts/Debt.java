@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public class Debt  {
     public Map<LocalDate, Double> averagePerMonth() {
         return dues.stream()
             .collect(
-                groupingBy(firstOfMonthFnc, averagingDouble(Due::getAmount)));
+                groupingBy(firstOfMonthFnc, TreeMap::new, averagingDouble(Due::getAmount)));
     }
 
     @JsonIgnore

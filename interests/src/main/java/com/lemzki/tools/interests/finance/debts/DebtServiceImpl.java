@@ -26,7 +26,7 @@ public class DebtServiceImpl implements DebtService{
 
     @Override public Debt getDebtByNameDuesByRange(String chartItem, LocalDate from, LocalDate to) {
 
-        Debt debt = repository.findDebtByNameAndByDueDate(chartItem, from,to);
+        Debt debt = repository.findDebt(chartItem, from,to);
 
         if (debt == null) {
             throw new ResourceNotFoundException("Unable to find chart data for "
