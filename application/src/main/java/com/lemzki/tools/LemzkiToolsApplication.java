@@ -4,6 +4,7 @@ package com.lemzki.tools;
 import com.google.common.collect.Sets;
 import com.lemzki.tools.interests.finance.debts.Debt;
 import com.lemzki.tools.interests.finance.debts.DebtRepository;
+import com.lemzki.tools.interests.finance.debts.Due;
 import com.lemzki.tools.people.db.loader.PersonLoader;
 import com.lemzki.tools.security.LoggedInUser;
 import com.lemzki.tools.security.User;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @SpringBootApplication(scanBasePackages = "com.lemzki.tools") @RestController @EnableAsync @EnableOAuth2Client @EnableAuthorizationServer
@@ -68,12 +70,24 @@ public class LemzkiToolsApplication {
     @Autowired DebtRepository debtRepository;
     @GetMapping("/doIt")
     public Collection doIt(){
-        LocalDate from = LocalDate.of(2018,12,1);
-        LocalDate to = LocalDate.of(2019,1,1);
-        Debt debt = debtRepository.findDebt("RCBC_VISA", from, to);
-        return Sets.newHashSet(debt);
+        Debt debt = debtRepository.findByName("BPIa");
+
+
+        LocalDate firstDate = LocalDate.of(2018,4,1);
+        for (int i = 0; i<dues.length; i++){
+            Due due = new Due();
+            due.setDebt(debt);
+            due.setAmount(dues[i]);
+            due.setDate(firstDate);
+            firstDate = firstDate.plusMonths(1);
+            debt.addDue(due);
+        }
+
+//         debtRepository.save(debt);
+        return null;
     }
 
+    double[] dues = {58781.77, 56660.08, 51814.72, 58534.22, 59520.11, 57528.64, 53817.46, 56627.68, 59707.29, 67539.30, 75263.59, 75347.81};
 
 
 }

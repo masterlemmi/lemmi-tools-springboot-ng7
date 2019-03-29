@@ -8,6 +8,8 @@
 
 @import "../node_modules/font-awesome/css/font-awesome.css";
 
+@import "./variables";
+
 //@import "../node_modules/bulma-calendar/dist/css/bulma-calendar.min.css";
 
 html { font-size: 62.5%} // == 10px
@@ -19,9 +21,7 @@ body {
  font-family: Roboto, sans-serif;
 }
 
-.people {
 
-}
 
 .person {
     display: inline;

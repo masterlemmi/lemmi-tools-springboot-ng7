@@ -1,12 +1,32 @@
-
-
-
 <section class="hero is-info is-fullheight is-bold">
-
   <div class="hero-head">
-    <div class="container">
-      <linechart xlabel="Amount" ylabel="Month"></linechart>
+    <div class="container  dropdown-container">
+      <h1 (click)="toggle=!toggle" class="drop-down-trigger title is-1 has-text-grey-dark chart-header">
+        {{selectedDebt.uiName || 'Select Debt'}} </h1>
+      <div class="drop-down-trigger">
+        <span class="debt-dropdown-toggle title is-1 has-text-grey-dark" (click)="toggle=!toggle">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </span>
+        <div class="dropdown-menu " [ngClass]="{'not-active':!toggle}" id="dropdown-menu3" role="menu">
+          <div class="dropdown-content">
+            <a class="dropdown-item" *ngFor="let debt of debts" (click)="select(debt)">
+              {{debt.uiName}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" *ngIf="selectedDebt.name">
+      <div class="chart-container">
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="true"
+          [timeline]="timeline" (select)="onSelect($event)">
+        </ngx-charts-line-chart>
+      </div>
+      <br />
+      <br />
+     
     </div>
   </div>
-
 </section>

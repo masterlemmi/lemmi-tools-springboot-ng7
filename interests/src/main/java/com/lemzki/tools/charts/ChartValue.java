@@ -16,11 +16,11 @@ import static java.util.stream.Collectors.toList;
 /**
  * Chart properties based from NGX Charting properties
  */
-public class ChartValue {
-    private String name;
-    private String value;
+public class ChartValue<N,V> {
+    private N name;
+    private V value;
 
-    public ChartValue(String name, String value){
+    public ChartValue(N name, V value){
         this.name = name;
         this.value = value;
     }

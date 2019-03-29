@@ -6,15 +6,17 @@ import java.util.Optional;
 public interface ChartService {
 
     /**
-     * Identifies the service implementation to service users
+     * Identifies the service implementation
      * @return what chart data this returns (e.g. debts, grades, weight etc)
      */
      String chartName();
 
-    List<ChartMultiValue> getChart();
+    List<ChartMultiValue> getCharts(Optional<String> from, Optional<String> to);
 
-    List<ChartMultiValue> getChartItem(String chartItem, Optional<String> from,
-        Optional<String> to, Optional<Boolean> showBurnDown);
+    ChartMultiValue getChartItem(String chartItem, Optional<String> from,
+        Optional<String> to, Optional<Double> plannedPayment);
+
+    List<ChartNameDto> getChartItemNames();
 
     void insertTestData();
 }

@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { FinancesRoutingModule } from './finances-routing.module';
 import { FinancesHomeComponent } from './finances-home/finances-home.component';
 import { BudgetComponent } from './budget/budget.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [FinancesHomeComponent, DebtsAndLoansComponent, BudgetComponent],
   imports: [
-    FinancesRoutingModule, SharedModule
+    FinancesRoutingModule, SharedModule,NgxChartsModule
   
   ],
   exports : [

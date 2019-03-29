@@ -1,4 +1,4 @@
 export class ChartValue {
-    name: string
-    value: string
+    name: any
+    value: any
 }

@@ -25,7 +25,7 @@ import { LinechartComponent } from './chart/linechart/linechart.component';
 @NgModule({
   imports: [
     /* angular stuff */
-    HttpClientModule, CommonModule, NgxChartsModule,
+    HttpClientModule, CommonModule
     
   ],
   declarations: [

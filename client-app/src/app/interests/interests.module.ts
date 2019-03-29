@@ -8,6 +8,7 @@ import { MangaComponent } from './manga/manga.component';
 import { MoviesComponent } from './movies/movies.component';
 import { InterestsRoutingModule } from './interests-routing.module';
 import { TranslationsComponent } from './spoken-languages/translations/translations.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({

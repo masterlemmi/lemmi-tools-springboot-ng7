@@ -20,6 +20,11 @@ public class ChartMultiValue  {
     private String name;
     private List<ChartValue> series;
 
+    /**
+     * flexible storage of additional data to be added with this chart (e.g. estimated debt pay)
+     */
+    private Map<String, Object> details;
+
     public ChartMultiValue(String name, List<ChartValue> series){
         this.name= name;
         this.series = series;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { MessageService } from 'app/core/message.service';
 
 import { ChartMultiValue } from 'app/shared/chart/chart-multi-value';
 import { Plugin } from 'app/devtools/ides/plugins/plugin';
+import { ChartName } from 'app/shared/chart/chart-name';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -31,12 +32,21 @@ export class DebtsChartService {
   }
 
   /** GET plugin by id. Will 404 if id not found */
-  getPlugin(id: number): Observable<Plugin> {
-    const url = `${this.url}/${id}`;
-    return this.http.get<Plugin>(url).pipe(
-      tap(_ => this.log(`fetched plugin id=${id}`)),
-      catchError(this.handleError<Plugin>(`getPlugin id=${id}`))
+  getDebt(debtname: string, params?: HttpParams): Observable<ChartMultiValue> {
+    const url = `${this.url}/${debtname}`;
+    return this.http.get<ChartMultiValue>(url, {headers: httpOptions.headers, params: params}).pipe(
+      tap(_ => this.log(`fetched debt=${debtname}`)),
+      catchError(this.handleError<ChartMultiValue>(`getPlugin debtname=${debtname}`))
     );
+  }
+
+  /** GET plugin by id. Will 404 if id not found */
+  getDebtItems(): Observable<ChartName[]> {
+    const url = `${this.url}/items`;
+    return this.http.get<ChartName[]>(url, {headers: httpOptions.headers, params: null}).pipe(
+      tap(_ => this.log(`fetched debtitems`)),
+      catchError(this.handleError<ChartName[]>(`fetched debtitems`))
+   );
   }
 
   /* GET plugins whose name contains search term */

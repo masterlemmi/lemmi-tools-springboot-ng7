@@ -1,6 +1,7 @@
 import { ChartValue } from './chart-value';
 
 export class ChartMultiValue {
-    name: string
+    name: any
     series: ChartValue[]
+    details?: any
 }
