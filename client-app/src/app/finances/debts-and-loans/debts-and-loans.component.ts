@@ -14,6 +14,7 @@ export class DebtsAndLoansComponent implements OnInit {
   toggle = false;
   selectedDebt = {}
   notes = ["Loading", "Loading", "Loading"]
+  calcNotes = ["Loading", "Loading", "Loading"]
   debts: any= ["Loading..."]
   multi: ChartMultiValue[] =  [
     {
@@ -35,7 +36,7 @@ export class DebtsAndLoansComponent implements OnInit {
       ]
     }
   ];
-  //view: any[] = [900,400];
+  //view: any[] = [700,400];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -52,19 +53,39 @@ export class DebtsAndLoansComponent implements OnInit {
 
   fetchDebt(debt, params?){
     this.debtChartService.getDebt(debt.name, params).subscribe ( chart => {
-        console.log("CART", chart)
-        console.log("DETAILS", chart.details)
         chart.series.forEach (this.mapSeriesNameToDate)
-        let burndown: ChartMultiValue = chart.details.trend;
-       
-        if(burndown){
-          burndown.series.forEach(this.mapSeriesNameToDate)
+        this.multi = [chart];
+        
+        let trend: ChartMultiValue = chart.details.trend;
+        
+        if(trend){
+          trend.series.forEach(this.mapSeriesNameToDate)
+          this.multi.push(trend);
+          this.colorScheme.domain[this.multi.length -1] = 'yellow'
+          this.notes = chart.details.trendNotes;
         }
-        this.multi = [chart, burndown];      
-        this.colorScheme.domain[1] = 'yellow'
-        this.notes = chart.details.trendNotes;
+
+        let calculation = chart.details.calculation;
+        console.log("CalC", calculation)
+
+        if (calculation){
+          calculation.series.forEach(this.mapSeriesNameToDate);
+          this.multi.push(calculation);
+          this.colorScheme.domain[this.multi.length -1] = 'green'
+          this.notes = [chart.details.calcNotes]; 
+        }
        
      })
+  }
+
+  addToChartView(chart: ChartMultiValue){
+    this.multi.push(chart);
+  }
+
+  removeFromChartView(chart: ChartMultiValue){
+    this.multi = this.multi.filter(x=>{
+        x.name != chart.name;
+    });
   }
 
 

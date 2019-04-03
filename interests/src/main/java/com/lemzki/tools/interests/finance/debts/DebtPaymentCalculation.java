@@ -14,6 +14,7 @@ import java.util.TreeMap;
 public class DebtPaymentCalculation {
     private boolean canBePaid;
     private LocalDate estimatedEnd;
+    private double lastAmount;
     private double payment;
     private double duration;
     private TreeMap<LocalDate, Double> estimatedDues;
@@ -22,15 +23,15 @@ public class DebtPaymentCalculation {
     public String getNotes(){
         if (canBePaid){
            return "With a consistent payment of " + payment + " per month " +
-                "you will pay all your dues in " + refactoredDuration() + ". That' s in " + estimatedEnd + "!";
+                "you will pay all your dues in " + refactoredDuration() + ". That' s on " + estimatedEnd + "!";
         } else {
            return  "Tough luck. with a payment of only " + payment + " per month " +
-                "you'll be in debt forever!";
+                "you'll still have " + lastAmount + " debt after 20 years.";
         }
     }
 
     public String refactoredDuration(){
-        return duration > 11 ? duration  / 12 + " years " + duration % 12 +  " + months" :
+        return duration > 11 ? ((int)(duration / 12)) + " years " + ((int)duration %12) +  " months" :
             duration + " months";
     }
 }

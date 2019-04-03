@@ -85,13 +85,14 @@ import static java.util.stream.Collectors.toList;
     }
 
     private Map<String, Object> generateDetailsData(DebtAnalysis analysis) {
+        //there will always be a dt so no risk for NPE here
         DebtTrend dt = analysis.getTrend();
         DebtPaymentCalculation dpc = analysis.getCalculation();
 
         Map<String, Object> details = Maps.newHashMap();
 
-        details.put("trend", getBurnDownChart(analysis.getTrend()));
-        details.put("trendNotes", analysis.getTrend().getNotes());
+        details.put("trend", getBurnDownChart(dt));
+        details.put("trendNotes", dt.getNotes());
         details.put("calculation", getCalculationChart(dpc));
         details.put("calcNotes", dpc == null? "" : dpc.getNotes());
 
@@ -100,7 +101,7 @@ import static java.util.stream.Collectors.toList;
     }
 
     private ChartMultiValue getCalculationChart(DebtPaymentCalculation calculation) {
-        if (calculation == null) return null;
+        if (calculation == null || calculation.getEstimatedDues() == null) return null;
 
         Map<LocalDate, Double> dues = calculation.getEstimatedDues();
         List<ChartValue> series = dues.entrySet().stream()

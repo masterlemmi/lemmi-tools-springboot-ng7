@@ -29,13 +29,20 @@ public class DebtAnalyzer {
             paymentCounts++;
             lastAmt = FinanceUtils.payWithInterest(lastAmt, debt.getInterestPercentage(), payment.get());
 
-            if (lastAmt > dt.getLastDueAmount()) {
-                DebtPaymentCalculation impossible =  impossibleDebt(payment.get(), debt.getUiName());
-                analysis.setCalculation(impossible);
-                return analysis;
-            }
             estimateFinish = estimateFinish.plusMonths(1);
             futureDues.put(estimateFinish, lastAmt);
+
+            if (paymentCounts >= 240){
+                DebtPaymentCalculation dc = new DebtPaymentCalculation();
+                dc.setDuration(paymentCounts);
+                dc.setEstimatedEnd(estimateFinish);
+                dc.setLastAmount(lastAmt);
+                dc.setEstimatedDues(futureDues);
+                dc.setPayment(payment.get());
+                dc.setCanBePaid(false);
+                analysis.setCalculation(dc);
+                return analysis;
+            }
         }
 
         DebtPaymentCalculation dc = new DebtPaymentCalculation();
@@ -49,12 +56,5 @@ public class DebtAnalyzer {
         return analysis;
     }
 
-    private DebtPaymentCalculation impossibleDebt(double payment, String debtName) {
-        DebtPaymentCalculation dc = new DebtPaymentCalculation();
-        dc.setDuration(Double.POSITIVE_INFINITY);
-        dc.setEstimatedEnd(LocalDate.MAX);
-        dc.setPayment(payment);
-        dc.setCanBePaid(false);
-        return dc;
-    }
+
 }

@@ -26,7 +26,23 @@
       </div>
       <br />
       <br />
-     
+      <div class="chart-margin-content">
+        <div class="has-text-grey-dark is-size-5 notification is-primary">
+          <p class="has-text-weight-bold has-text-grey-dark is-size-5">Analysis</p>
+          <ul>
+            <li class="has-text-grey-dark is-size-5" *ngFor="let n of notes">
+              <i class="fa fa-circle icon" aria-hidden="true"></i> {{n}}
+            </li>
+          </ul>
+          <br />
+          <p class="has-text-weight-bold has-text-grey-dark is-size-5">Calculate future payments</p>
+          <input class="button is-medium" type="submit" value="Calculate!" (click)="calculate(amount)">
+          <div class="estimate-input">
+            <input class="input  is-medium" type="number" placeholder="Amount" #amount>
+          </div>
+          
+        </div>
+      </div>
     </div>
   </div>
 </section>
